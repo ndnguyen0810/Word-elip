@@ -1,0 +1,46 @@
+package View.CaiDat;
+
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import java.awt.GridLayout;
+import javax.swing.border.EmptyBorder;
+
+public class JP_CaiDat extends JPanel {
+
+	/**
+	 * Create the panel.
+	 */
+	public JP_CaiDat() {
+		setBorder(new EmptyBorder(20, 20, 20, 20));
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		
+		JPanel pnMain = new JPanel();
+		add(pnMain);
+		pnMain.setLayout(new BorderLayout(0, 0));
+		
+		JPanel pnLeft = new JPanel();
+		pnMain.add(pnLeft, BorderLayout.WEST);
+		pnLeft.setLayout(new BorderLayout(0, 0));
+		
+		JPanel pnButton = new JPanel();
+		pnLeft.add(pnButton, BorderLayout.NORTH);
+		pnButton.setLayout(new GridLayout(2, 1, 0, 5));
+		
+		JButton btnDoiMatKhau = new JButton("Đổi mật khẩu");
+		pnButton.add(btnDoiMatKhau);
+		
+		JButton btnThongTin = new JButton("Thông tin");
+		pnButton.add(btnThongTin);
+		
+		JPanel pnCenter = new JPanel();
+		pnMain.add(pnCenter, BorderLayout.CENTER);
+		
+		JPanel pnAdd = new JPanel();
+		pnCenter.add(pnAdd);
+		pnAdd.setLayout(new BoxLayout(pnAdd, BoxLayout.PAGE_AXIS));
+
+	}
+
+}

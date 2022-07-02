@@ -1,0 +1,67 @@
+package View.CaiDat;
+
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import java.awt.GridLayout;
+import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class JP_CaiDat extends JPanel {
+private JButton btnThongTin,btnDoiMatKhau;
+	
+	public JP_CaiDat() {
+		addcontrolls();
+		addevents();
+		
+	}
+
+	private void addcontrolls() {
+		setBorder(new EmptyBorder(20, 20, 20, 20));
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		
+		JPanel pnMain = new JPanel();
+		add(pnMain);
+		pnMain.setLayout(new BorderLayout(0, 0));
+		
+		JPanel pnLeft = new JPanel();
+		pnMain.add(pnLeft, BorderLayout.WEST);
+		pnLeft.setLayout(new BorderLayout(0, 0));
+		
+		JPanel pnButton = new JPanel();
+		pnLeft.add(pnButton, BorderLayout.NORTH);
+		pnButton.setLayout(new GridLayout(2, 1, 0, 5));
+		
+		btnDoiMatKhau = new JButton("Đổi mật khẩu");
+		btnDoiMatKhau.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		pnButton.add(btnDoiMatKhau);
+		
+		btnThongTin = new JButton("Thông tin");
+		btnThongTin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		pnButton.add(btnThongTin);
+		
+		JPanel pnCenter = new JPanel();
+		pnMain.add(pnCenter, BorderLayout.CENTER);
+		
+		JPanel pnAdd = new JPanel();
+		pnCenter.add(pnAdd);
+		pnAdd.setLayout(new BoxLayout(pnAdd, BoxLayout.PAGE_AXIS));
+		
+	}
+
+	private void addevents() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+
+}

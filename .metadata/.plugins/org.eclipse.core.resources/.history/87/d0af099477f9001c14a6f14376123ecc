@@ -1,0 +1,78 @@
+package View.BanHang;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.BoxLayout;
+import java.awt.GridLayout;
+import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+
+public class JF_BanHang extends JFrame {
+
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					JF_BanHang frame = new JF_BanHang();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public JF_BanHang() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 1026, 671);
+		
+		JPanel pnMain = new JPanel();
+		getContentPane().add(pnMain, BorderLayout.CENTER);
+		pnMain.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		JPanel pnLeft = new JPanel();
+		pnMain.add(pnLeft);
+		pnLeft.setLayout(new BoxLayout(pnLeft, BoxLayout.PAGE_AXIS));
+		
+		JPanel pnBan = new JPanel();
+		pnLeft.add(pnBan);
+		
+		JPanel pnTrangThai = new JPanel();
+		pnLeft.add(pnTrangThai);
+		pnTrangThai.setLayout(new BoxLayout(pnTrangThai, BoxLayout.X_AXIS));
+		
+		JPanel pn_chuaTT = new JPanel();
+		pnTrangThai.add(pn_chuaTT);
+		pn_chuaTT.setLayout(new BoxLayout(pn_chuaTT, BoxLayout.X_AXIS));
+		
+		JButton btnNewButton = new JButton("New button");
+		pn_chuaTT.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("New button");
+		pn_chuaTT.add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("New button");
+		pn_chuaTT.add(btnNewButton_2);
+		
+		JPanel pnRight = new JPanel();
+		pnMain.add(pnRight);
+		pnRight.setLayout(new BoxLayout(pnRight, BoxLayout.X_AXIS));
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		pnRight.add(lblNewLabel);
+	}
+
+}

@@ -1,0 +1,66 @@
+package View.BanHang;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.BoxLayout;
+import java.awt.GridLayout;
+import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+
+public class JF_BanHang extends JFrame {
+
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					JF_BanHang frame = new JF_BanHang();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public JF_BanHang() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		
+		JPanel pnMain = new JPanel();
+		getContentPane().add(pnMain, BorderLayout.CENTER);
+		GridBagLayout gbl_pnMain = new GridBagLayout();
+		gbl_pnMain.columnWidths = new int[]{145, 145, 0};
+		gbl_pnMain.rowHeights = new int[]{263, 0};
+		gbl_pnMain.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_pnMain.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		pnMain.setLayout(gbl_pnMain);
+		
+		JPanel pnLeft = new JPanel();
+		GridBagConstraints gbc_pnLeft = new GridBagConstraints();
+		gbc_pnLeft.fill = GridBagConstraints.BOTH;
+		gbc_pnLeft.insets = new Insets(0, 0, 0, 5);
+		gbc_pnLeft.gridx = 0;
+		gbc_pnLeft.gridy = 0;
+		pnMain.add(pnLeft, gbc_pnLeft);
+		
+				JPanel pnRight = new JPanel();
+				FlowLayout flowLayout = (FlowLayout) pnRight.getLayout();
+				GridBagConstraints gbc_pnRight = new GridBagConstraints();
+				gbc_pnRight.gridwidth = 2;
+				gbc_pnRight.anchor = GridBagConstraints.EAST;
+				gbc_pnRight.fill = GridBagConstraints.VERTICAL;
+				gbc_pnRight.gridx = 1;
+				gbc_pnRight.gridy = 0;
+				pnMain.add(pnRight, gbc_pnRight);
+	}
+
+}

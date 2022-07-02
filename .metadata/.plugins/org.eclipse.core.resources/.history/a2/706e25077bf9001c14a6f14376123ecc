@@ -1,0 +1,39 @@
+package View.BanHang;
+
+import javax.swing.*;
+import java.awt.GridLayout;
+import java.awt.BorderLayout;
+
+public class JP_GoiMon extends JPanel {
+
+	/**
+	 * Create the panel.
+	 */
+	public JP_GoiMon() {
+		setLayout(new GridLayout(0, 2, 0, 0));
+		
+		JPanel pnThongTinBan = new JPanel();
+		add(pnThongTinBan);
+		pnThongTinBan.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel = new JPanel();
+		pnThongTinBan.add(panel, BorderLayout.NORTH);
+		panel.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel_2 = new JPanel();
+		pnThongTinBan.add(panel_2, BorderLayout.CENTER);
+		panel_2.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel_1 = new JPanel();
+		pnThongTinBan.add(panel_1, BorderLayout.SOUTH);
+		
+		JPanel pnThucDon = new JPanel();
+		add(pnThucDon);
+		pnThucDon.setLayout(new BoxLayout(pnThucDon, BoxLayout.X_AXIS));
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		pnThucDon.add(lblNewLabel);
+
+	}
+
+}

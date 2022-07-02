@@ -1,0 +1,148 @@
+package buoi8.bai1;
+
+import java.awt.*;
+import java.text.*;
+import javax.swing.*;
+import javax.swing.event.*;
+import java.awt.event.*;
+import javax.swing.border.EmptyBorder;
+
+public class QuanLyTaiSan extends JFrame {
+
+	private JPanel contentPane;
+	public static JTable tableDT;
+	public JButton btnThem, btnSua, btnXoa, btnthoat;
+
+	public static String maTS, tenTS, ngayNhap, sonam, triGia;
+	public static String btnName="";
+//	public static Date ngayNhap;
+	SimpleDateFormat formatter = new SimpleDateFormat("E, MMM dd yyyy");
+
+	TaiSan ts = new TaiSan();
+
+	public void ShowWindow() {
+		this.setSize(1000, 500);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setLocationRelativeTo(null);
+		this.setResizable(false);
+		this.setVisible(true);
+	}
+
+	public QuanLyTaiSan(String title) {
+		this.setTitle(title);
+		addcontrols();
+		ts.showTB(tableDT);
+		addEvents();
+	}
+
+	private void addcontrols() {
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(30, 30, 30, 30));
+		setContentPane(contentPane);
+		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
+
+		JPanel pnTitle = new JPanel();
+		pnTitle.setBorder(new EmptyBorder(13, 0, 20, 0));
+		pnTitle.setLayout(new BoxLayout(pnTitle, BoxLayout.X_AXIS));
+		JLabel lblTitle = new JLabel("CHƯƠNG TRÌNH QUẢN LÝ TÀI SẢN");
+		lblTitle.setFont(new Font("Times New Roman", Font.PLAIN, 30));
+		pnTitle.add(lblTitle);
+		contentPane.add(pnTitle);
+
+		tableDT = new JTable();
+		tableDT.setCellSelectionEnabled(true);
+		tableDT.setColumnSelectionAllowed(true);
+		tableDT.setRowHeight(25);
+		tableDT.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+//		pnTable.add(tableDT);
+		contentPane.add(tableDT);
+
+		JPanel pnBottom = new JPanel();
+		contentPane.add(pnBottom);
+		pnBottom.setLayout(new BoxLayout(pnBottom, BoxLayout.Y_AXIS));
+
+		JPanel pnBTN = new JPanel();
+		pnBottom.add(pnBTN);
+		pnBTN.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+
+		btnThem = new JButton("Thêm");
+		pnBTN.add(btnThem);
+
+		btnSua = new JButton("Sửa thông tin");
+		pnBTN.add(btnSua);
+
+		btnXoa = new JButton("Xoá");
+		pnBTN.add(btnXoa);
+
+		btnthoat = new JButton("Thoát");
+		pnBTN.add(btnthoat);
+
+	}
+
+	public static void main(String[] args) {
+		new QuanLyTaiSan("Nguyễn Đình Nguyên").ShowWindow();
+
+	}
+
+	private void addEvents() {
+		tableDT.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		ListSelectionModel model = tableDT.getSelectionModel();
+		model.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if (e.getValueIsAdjusting()) {
+					return;
+				}
+				ListSelectionModel lsm = (ListSelectionModel) e.getSource();
+
+				if (lsm.isSelectionEmpty()) {
+					JOptionPane.showMessageDialog(null, "Bạn chưa chọn");
+				} else {
+					int selectedRow = lsm.getMinSelectionIndex();
+					maTS = tableDT.getModel().getValueAt(selectedRow, 0).toString();
+					tenTS = tableDT.getModel().getValueAt(selectedRow, 1).toString();
+					ngayNhap = tableDT.getModel().getValueAt(selectedRow, 2).toString();
+					sonam = tableDT.getModel().getValueAt(selectedRow, 3).toString();
+					triGia = tableDT.getModel().getValueAt(selectedRow, 4).toString();
+				}
+			}
+
+		});
+
+		btnThem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new TaiSanUI("Thêm tài sản").ShowWindow();
+				btnName = btnThem.getText();
+				ts.showTB(tableDT);
+			}
+		});
+		btnSua.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new TaiSanUI("Sửa tài sản").ShowWindow();
+				btnName = btnSua.getText();
+				ts.showTB(tableDT);
+			}
+		});
+		btnXoa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ts.setMaTS(maTS);
+				ts.delete(ts);
+				ts.showTB(tableDT);
+			}
+		});
+		btnthoat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.err.println(btnthoat.getText());
+				// System.exit(0);
+//				if (JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn thoát không?", "Thông báo",
+//						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+//					System.exit(0);
+//				}
+			}
+		});
+
+	}
+
+	
+
+}

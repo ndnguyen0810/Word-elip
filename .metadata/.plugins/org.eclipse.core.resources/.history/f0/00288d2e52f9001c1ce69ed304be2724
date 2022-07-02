@@ -1,0 +1,79 @@
+package View.Main;
+
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.*;
+import java.awt.Window.Type;
+
+public class ViewLogin extends JFrame {
+	private JTextField textField,passwordField;
+	private JButton btnDangNhap, btnThoat;
+
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ViewLogin frame = new ViewLogin();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	public ViewLogin() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ViewLogin.class.getResource("/Systems/Image/login.png")));
+		setTitle("Dang Nhap");
+		setBounds(100, 100, 359, 220);
+		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
+		
+		JPanel pnMain = new JPanel();
+		getContentPane().add(pnMain);
+		pnMain.setLayout(new BoxLayout(pnMain, BoxLayout.LINE_AXIS));
+		
+		JPanel pnConMain = new JPanel();
+		pnConMain.setBorder(new EmptyBorder(20, 20, 20, 20));
+		pnMain.add(pnConMain);
+		pnConMain.setLayout(new BoxLayout(pnConMain, BoxLayout.Y_AXIS));
+		
+		JPanel pnTop = new JPanel();
+		pnTop.setBorder(new EmptyBorder(0, 0, 20, 0));
+		pnConMain.add(pnTop);
+		pnTop.setLayout(new BoxLayout(pnTop, BoxLayout.X_AXIS));
+		
+		JLabel lblDangNhap = new JLabel("ĐĂNG NHẬP");
+		lblDangNhap.setFont(new Font("Arial", Font.PLAIN, 25));
+		pnTop.add(lblDangNhap);
+		
+		JPanel pnCenter = new JPanel();
+		pnCenter.setBorder(new EmptyBorder(0, 0, 20, 0));
+		pnConMain.add(pnCenter);
+		pnCenter.setLayout(new GridLayout(2, 2, 2, 2));
+		
+		JLabel lblTaikhoan = new JLabel("Tài khoản");
+		pnCenter.add(lblTaikhoan);
+		
+		textField = new JTextField();
+		pnCenter.add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblmatkhau = new JLabel("Mật khẩu");
+		pnCenter.add(lblmatkhau);
+		
+		passwordField = new JPasswordField();
+		pnCenter.add(passwordField);
+		
+		JPanel pnBot = new JPanel();
+		pnConMain.add(pnBot);
+		pnBot.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JButton btnDangNhap = new JButton("Đăng Nhập");
+		pnBot.add(btnDangNhap);
+		
+		JButton btnThoat = new JButton("Thoát");
+		pnBot.add(btnThoat);
+	}
+
+}

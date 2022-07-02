@@ -1,0 +1,22 @@
+package View.CaiDat;
+
+import javax.swing.JPanel;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+
+public class JP_ThongTin extends JPanel {
+
+	/**
+	 * Create the panel.
+	 */
+	public JP_ThongTin() {
+		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		
+		JLabel lblThongTin = new JLabel();
+		lblThongTin.setIcon(new ImageIcon(JP_ThongTin.class.getResource("/Systems/Image/ThongTin.jpg")));
+		add(lblThongTin);
+
+	}
+
+}

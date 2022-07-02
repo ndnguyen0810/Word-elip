@@ -1,0 +1,82 @@
+package View.Main;
+
+import javax.swing.*;
+import java.awt.*;
+
+
+public class ViewMain extends JFrame {
+
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ViewMain frame = new ViewMain();
+					
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+
+	public ViewMain() {
+		setSize(1000, 500);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
+		
+		JPanel pn = new JPanel();
+		getContentPane().add(pn);
+		pn.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel_1 = new JPanel();
+		pn.add(panel_1, BorderLayout.NORTH);
+		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.X_AXIS));
+		
+		JPanel panel = new JPanel();
+		panel_1.add(panel);
+		panel.setLayout(new GridLayout(1, 7, 20, 20));
+		
+		JButton btnNewButton = new JButton("Trang chủ");
+		panel.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Bán hàng");
+		panel.add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("Quản lý");
+		panel.add(btnNewButton_2);
+		
+		JButton btnNewButton_3 = new JButton("Thống kê");
+		panel.add(btnNewButton_3);
+		
+		JButton btnNewButton_4 = new JButton("Cài đặt");
+		panel.add(btnNewButton_4);
+		
+		JPanel pnTT = new JPanel();
+		panel.add(pnTT);
+		pnTT.setLayout(new BoxLayout(pnTT, BoxLayout.Y_AXIS));
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		pnTT.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		pnTT.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		pnTT.add(lblNewLabel_2);
+		
+		JPanel panel_4 = new JPanel();
+		panel.add(panel_4);
+		panel_4.setLayout(new BoxLayout(panel_4, BoxLayout.Y_AXIS));
+		
+		JLabel lblNewLabel_3 = new JLabel("New label");
+		panel_4.add(lblNewLabel_3);
+		
+		JButton btnNewButton_5 = new JButton("New button");
+		panel_4.add(btnNewButton_5);
+		
+		JPanel panel_2 = new JPanel();
+		pn.add(panel_2, BorderLayout.CENTER);
+	}
+}

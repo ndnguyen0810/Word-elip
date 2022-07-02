@@ -1,0 +1,14 @@
+package View.Main;
+
+import javax.swing.*;
+
+public class JP_Home extends JPanel {
+
+	/**
+	 * Create the panel.
+	 */
+	public JP_Home() {
+
+	}
+
+}

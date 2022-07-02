@@ -1,0 +1,53 @@
+package View.QuanLy;
+
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.BoxLayout;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import javax.swing.JButton;
+
+public class JP_QuanLy extends JPanel {
+
+	/**
+	 * Create the panel.
+	 */
+	public JP_QuanLy() {
+		setBorder(new EmptyBorder(20, 20, 20, 20));
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+
+		JPanel pnMain = new JPanel();
+		add(pnMain);
+		pnMain.setLayout(new BorderLayout(0, 0));
+
+		JPanel pnLeft = new JPanel();
+		pnMain.add(pnLeft, BorderLayout.WEST);
+		pnLeft.setLayout(new BorderLayout(0, 0));
+
+		JPanel pnButton = new JPanel();
+		pnLeft.add(pnButton, BorderLayout.NORTH);
+		pnButton.setLayout(new GridLayout(4, 1, 0, 5));
+		
+		JButton btnNewButton = new JButton("Quản lý thực đơn");
+		pnButton.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Quản lý nhóm món");
+		pnButton.add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("Quản lý bàn");
+		pnButton.add(btnNewButton_2);
+		
+		JButton btnNewButton_3 = new JButton("Quản lý tài khoản");
+		pnButton.add(btnNewButton_3);
+
+		JPanel pnCenter = new JPanel();
+		pnMain.add(pnCenter, BorderLayout.CENTER);
+
+		JPanel pnAdd = new JPanel();
+		pnCenter.add(pnAdd);
+		pnAdd.setLayout(new BoxLayout(pnAdd, BoxLayout.PAGE_AXIS));
+
+
+	}
+
+}

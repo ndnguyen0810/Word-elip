@@ -1,0 +1,159 @@
+package View.Main;
+
+import javax.swing.*;
+import java.awt.*;
+import javax.swing.border.*;
+import View.BanHang.*;
+import View.BanHang.JP_GoiMon;
+import View.BanHang.JP_ThucDon;
+
+import javax.swing.GroupLayout.Alignment;
+
+
+public class JF_Main extends JFrame {
+	JPanel pnMainChinh;
+	
+	
+	JP_Home home;
+	JP_BanHang banhang;
+	JP_GoiMon goimon;
+	JP_ThucDon thucdon;
+
+	public void reloadPanel(int i) {
+		pnMainChinh.removeAll();
+        switch (i) {
+            case 1:
+                if (banhang == null) {
+                    banhang = new JP_BanHang();
+                } 
+//                btnBanHang.setPressedIcon(new ImageIcon("down.png"));
+                pnMainChinh.add(banhang);
+                break;
+            case 2:
+                if (home == null) {
+                    home = new JP_Home();
+                }
+//                btnTrangChu.setPressedIcon(new ImageIcon("down.png"));
+               
+                pnMainChinh.add(home);
+                break;
+            case 3:
+                if(goimon == null){
+                	goimon = new JP_GoiMon();
+                }
+                pnMainChinh.add(goimon);
+                
+         break;
+            case 4:
+            	thucdon = new JP_ThucDon();         
+                pnMainChinh.add(thucdon);
+                break;        
+            default:
+                break;
+        }
+        pnMainChinh.updateUI();
+    }   
+	
+	
+	public JF_Main() {
+		getContentPane().setFont(new Font("Arial", Font.PLAIN, 14));
+		addcontrols();	
+	}
+
+	private void ShowMain() {
+		this.setSize(1200, 600);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLocationRelativeTo(null);
+		this.setResizable(false);
+		this.setVisible(true);
+		this.setDefaultCloseOperation(HIDE_ON_CLOSE);	
+	}
+
+	private void addcontrols() {	
+		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
+		
+		JPanel pnMain = new JPanel();
+		pnMain.setBorder(new EmptyBorder(20, 20, 20, 20));
+		getContentPane().add(pnMain);
+		pnMain.setLayout(new BorderLayout(0, 0));
+		
+		JPanel pn_Mains = new JPanel();
+		pnMain.add(pn_Mains, BorderLayout.NORTH);
+		pn_Mains.setLayout(new BoxLayout(pn_Mains, BoxLayout.X_AXIS));
+		
+		JPanel pnMenu = new JPanel();
+		pn_Mains.add(pnMenu);
+		pnMenu.setLayout(new GridLayout(1, 7, 20, 20));
+		
+		JButton btnTrangChu = new JButton("Trang chủ");
+		btnTrangChu.setFont(new Font("Arial", Font.PLAIN, 14));
+		pnMenu.add(btnTrangChu);
+		
+		JButton btnBanHang = new JButton("Bán hàng");
+		btnBanHang.setFont(new Font("Arial", Font.PLAIN, 14));
+		pnMenu.add(btnBanHang);
+		
+		JButton btnQuanLy = new JButton("Quản lý");
+		btnQuanLy.setFont(new Font("Arial", Font.PLAIN, 14));
+		pnMenu.add(btnQuanLy);
+		
+		JButton btnThongKe = new JButton("Thống kê");
+		btnThongKe.setFont(new Font("Arial", Font.PLAIN, 14));
+		pnMenu.add(btnThongKe);
+		
+		JButton btnCaiDat = new JButton("Cài đặt");
+		btnCaiDat.setFont(new Font("Arial", Font.PLAIN, 14));
+		pnMenu.add(btnCaiDat);
+		
+		JPanel pnTT = new JPanel();
+		pnMenu.add(pnTT);
+		pnTT.setLayout(new BoxLayout(pnTT, BoxLayout.Y_AXIS));
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 14));
+		pnTT.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 14));
+		pnTT.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		lblNewLabel_2.setFont(new Font("Arial", Font.PLAIN, 14));
+		pnTT.add(lblNewLabel_2);
+		
+		JPanel pnMenuRight = new JPanel();
+		pnMenu.add(pnMenuRight);
+		
+		JLabel lblNewLabel_3 = new JLabel("New label");
+		lblNewLabel_3.setFont(new Font("Arial", Font.PLAIN, 14));
+		
+		JButton btnDangXuat = new JButton("Đăng xuất");
+		btnDangXuat.setFont(new Font("Arial", Font.PLAIN, 14));
+		pnMenuRight.setLayout(new BoxLayout(pnMenuRight, BoxLayout.PAGE_AXIS));
+		pnMenuRight.add(lblNewLabel_3);
+		pnMenuRight.add(btnDangXuat);
+		
+		JPanel pnChils = new JPanel();
+		pnMain.add(pnChils, BorderLayout.CENTER);
+		pnChils.setLayout(new BorderLayout(0, 0));
+		
+		pnMainChinh = new JPanel();
+		pnChils.add(pnMainChinh, BorderLayout.CENTER);
+		GroupLayout gl_pnMainChinh = new GroupLayout(pnMainChinh);
+		gl_pnMainChinh.setHorizontalGroup(
+			gl_pnMainChinh.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 984, Short.MAX_VALUE)
+		);
+		gl_pnMainChinh.setVerticalGroup(
+			gl_pnMainChinh.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 10, Short.MAX_VALUE)
+		);
+		pnMainChinh.setLayout(gl_pnMainChinh);
+		
+	}
+
+	public static void main(String[] args) {
+		new JF_Main().ShowMain();
+	}
+
+}

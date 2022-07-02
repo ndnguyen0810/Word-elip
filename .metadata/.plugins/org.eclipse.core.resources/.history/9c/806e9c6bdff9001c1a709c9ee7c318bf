@@ -1,0 +1,14 @@
+package View.QuanLy;
+
+import javax.swing.JPanel;
+
+public class JP_QL_ThucDon extends JPanel {
+
+	/**
+	 * Create the panel.
+	 */
+	public JP_QL_ThucDon() {
+
+	}
+
+}

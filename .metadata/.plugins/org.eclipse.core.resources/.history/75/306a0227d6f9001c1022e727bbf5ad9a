@@ -1,0 +1,71 @@
+package View.CaiDat;
+
+import javax.swing.JPanel;
+import javax.swing.BoxLayout;
+import javax.swing.border.TitledBorder;
+import java.awt.GridLayout;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.border.EmptyBorder;
+
+public class JP_DoiMatKhau extends JPanel {
+	private JPasswordField txtPassOld;
+	private JPasswordField txtPassNew;
+	private JPasswordField txtPassReNew;
+
+	/**
+	 * Create the panel.
+	 */
+	public JP_DoiMatKhau() {
+		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		
+		JPanel pnMain = new JPanel();
+		pnMain.setBorder(new TitledBorder(null, "\u0110\u1ED5i m\u1EADt kh\u1EA9u", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		add(pnMain);
+		pnMain.setLayout(new BoxLayout(pnMain, BoxLayout.Y_AXIS));
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new EmptyBorder(30, 30, 30, 30));
+		pnMain.add(panel);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		
+		JPanel panel_2 = new JPanel();
+		panel.add(panel_2);
+		panel_2.setLayout(new GridLayout(4, 2, -100, 5));
+		
+		JLabel lblNewLabel_1 = new JLabel("Tên tài khoản");
+		panel_2.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel = new JLabel("<USER NAME>");
+		panel_2.add(lblNewLabel);
+		
+		JLabel lblNewLabel_2 = new JLabel("Nhập lại mật khẩu cũ");
+		panel_2.add(lblNewLabel_2);
+		
+		txtPassOld = new JPasswordField();
+		panel_2.add(txtPassOld);
+		
+		JLabel lblNewLabel_4 = new JLabel("Nhập mật khẩu mới");
+		panel_2.add(lblNewLabel_4);
+		
+		txtPassNew = new JPasswordField();
+		panel_2.add(txtPassNew);
+		
+		JLabel lblNewLabel_3 = new JLabel("Nhập lại mật khẩu mới");
+		panel_2.add(lblNewLabel_3);
+		
+		txtPassReNew = new JPasswordField();
+		panel_2.add(txtPassReNew);
+		
+		JPanel panel_1 = new JPanel();
+		pnMain.add(panel_1);
+		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.X_AXIS));
+		
+		JButton btnXacNhan = new JButton("Xác nhận");
+		panel_1.add(btnXacNhan);
+
+	}
+
+}

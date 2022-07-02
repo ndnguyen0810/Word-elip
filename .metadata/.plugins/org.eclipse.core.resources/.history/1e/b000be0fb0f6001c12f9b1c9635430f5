@@ -1,0 +1,93 @@
+package buoi9.bai2;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.BoxLayout;
+import javax.swing.border.TitledBorder;
+import java.awt.GridLayout;
+import java.awt.FlowLayout;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.ImageIcon;
+import java.awt.Font;
+
+public class TimKiemUI extends JFrame {
+	private JTextField textField;
+	private JTable table;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					TimKiemUI frame = new TimKiemUI();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	public TimKiemUI() {
+		getContentPane().setFont(new Font("Arial", Font.PLAIN, 15));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 744, 642);
+		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+		
+		JPanel pnMain = new JPanel();
+		getContentPane().add(pnMain);
+		pnMain.setLayout(new BorderLayout(0, 0));
+		
+		JPanel pnTop = new JPanel();
+		pnTop.setBorder(new TitledBorder(null, "T\u00ECm ki\u1EBFm", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		pnMain.add(pnTop, BorderLayout.NORTH);
+		pnTop.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JLabel lblNewLabel = new JLabel("Nhập hoặc chọn mã nhà xuất bản:");
+		lblNewLabel.setFont(new Font("Arial", Font.ITALIC, 15));
+		pnTop.add(lblNewLabel);
+		
+		textField = new JTextField();
+		textField.setFont(new Font("Arial", Font.PLAIN, 15));
+		pnTop.add(textField);
+		textField.setColumns(25);
+		
+		JButton btnTim = new JButton("Tìm");
+		btnTim.setFont(new Font("Arial", Font.PLAIN, 15));
+		btnTim.setIcon(new ImageIcon(TimKiemUI.class.getResource("/buoi9/image/seach.png")));
+		pnTop.add(btnTim);
+		
+		JPanel pnBot = new JPanel();
+		pnMain.add(pnBot, BorderLayout.CENTER);
+		pnBot.setLayout(new BoxLayout(pnBot, BoxLayout.PAGE_AXIS));
+		
+		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+			},
+			new String[] {
+				"New column", "New column", "New column", "New column", "New column", "New column"
+			}
+		));
+		pnBot.add(table);
+	}
+
+}

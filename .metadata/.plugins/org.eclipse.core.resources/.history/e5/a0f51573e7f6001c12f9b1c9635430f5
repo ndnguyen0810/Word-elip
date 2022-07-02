@@ -1,0 +1,55 @@
+package buoi9.bai2;
+
+import java.sql.*;
+
+public class NhaXuatBan {
+	private String manxb, tennxb, diachi, phone;
+	ConnectBuoi9_bai2 MyCon = new ConnectBuoi9_bai2();
+
+	public NhaXuatBan() {
+		super();
+		ConnectBuoi9_bai2.getConnection();
+	}
+
+	public NhaXuatBan(String manxb, String tennxb, String diachi, String phone) {
+		super();
+		this.manxb = manxb;
+		this.tennxb = tennxb;
+		this.diachi = diachi;
+		this.phone = phone;
+	}
+
+	public String getManxb() {
+		return manxb;
+	}
+
+	public void setManxb(String manxb) {
+		this.manxb = manxb;
+	}
+
+	public String getTennxb() {
+		return tennxb;
+	}
+
+	public void setTennxb(String tennxb) {
+		this.tennxb = tennxb;
+	}
+
+	public String getDiachi() {
+		return diachi;
+	}
+
+	public void setDiachi(String diachi) {
+		this.diachi = diachi;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+///xu ly
+	
+}

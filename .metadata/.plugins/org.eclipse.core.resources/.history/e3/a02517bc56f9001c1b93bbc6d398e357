@@ -1,0 +1,383 @@
+package buoi9.bai1;
+
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.*;
+import javax.swing.event.*;
+import javax.swing.table.*;
+
+import com.mysql.cj.x.protobuf.MysqlxCursor.Open;
+
+import java.awt.event.*;
+import java.sql.Connection;
+import java.util.Vector;
+
+public class QuanLySanPhamUI extends JFrame {
+
+	private JComboBox cbbDanhMuc;
+	private JTextField txtProductID, txtProductName, txtPrice, txtQuantity, txtDescription;
+	private JButton btnC_New, btnC_Save, btnL_Remove, btnL_New, btnL_Update;
+	private JTable tableTB;
+
+	public static JList JL_SanPham;
+	public static String nameBTN = "";
+	private JButton btnC_Remove;
+	private String maDM,tenDM;
+	
+	SanPham sp = new SanPham();
+	DanhMuc d = new DanhMuc();
+	DanhMuc dmSelected = new DanhMuc();
+
+	public static void main(String[] args) {
+		new QuanLySanPhamUI().Show();
+	}
+
+	public void Show() {
+		this.setTitle("Nguyen Dinh Nguyen");
+		this.setSize(1000, 700);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setLocationRelativeTo(null);
+		this.setResizable(false);
+		this.setVisible(true);
+		setFont(new Font("Times New Roman", Font.PLAIN, 15));
+	}
+
+	public QuanLySanPhamUI() {
+		this.addcontrols();
+		this.addEvents();
+		this.loadDanhMuc();
+
+		this.loadSanPham();
+
+	}
+
+	public void loadSanPham() {
+		sp.showSP_InTable(tableTB);
+	}
+
+	public void loadDanhMuc() {
+		sp.showSP_InList(JL_SanPham);
+	}
+
+	private void addEvents() {
+
+		tableTB.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		ListSelectionModel model = tableTB.getSelectionModel();
+		model.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if (e.getValueIsAdjusting()) {
+					return;
+				}
+				ListSelectionModel lsm = (ListSelectionModel) e.getSource();
+
+				tableTB.setTableHeader(null);
+
+				if (lsm.isSelectionEmpty()) {
+					JOptionPane.showMessageDialog(null, "Bạn chưa chọn");
+				} else {
+					int selectedRow = lsm.getMinSelectionIndex();
+					if (selectedRow != 0) {
+						txtProductID.setText(tableTB.getModel().getValueAt(selectedRow, 0).toString());
+						txtProductName.setText(tableTB.getModel().getValueAt(selectedRow, 1).toString());
+						txtPrice.setText(tableTB.getModel().getValueAt(selectedRow, 2).toString());
+						txtQuantity.setText(tableTB.getModel().getValueAt(selectedRow, 3).toString());
+						txtDescription.setText(tableTB.getModel().getValueAt(selectedRow, 4).toString());
+						cbbDanhMuc.getModel().setSelectedItem(tableTB.getModel().getValueAt(selectedRow, 5).toString());
+					}
+				}
+			}
+		});
+
+		// jlist
+		btnL_New.addActionListener(new ActionListener() { // new danh muc
+			public void actionPerformed(ActionEvent e) {
+				new DanhMucUI("Thêm danh mục mới").ShowWindowDanhMuc();
+				nameBTN = btnL_New.getText();
+				System.err.println(nameBTN + 1);
+			}
+		});
+
+		btnL_Update.addActionListener(new ActionListener() { // update danh muc
+			public void actionPerformed(ActionEvent e) {
+				new DanhMucUI("Cập nhật danh mục").ShowWindowDanhMuc();
+				// nameBTN = "CapNhatDanhMuc";
+				nameBTN = btnL_Update.getText();
+
+				loadDanhMuc();
+			}
+		});
+		btnL_Remove.addActionListener(new ActionListener() { // remove dnahmuc
+			public void actionPerformed(ActionEvent e) {
+				try {
+					String s = JL_SanPham.getSelectedValue().toString();
+					d.setTenDM(s);
+					d.delete(d);
+
+					loadDanhMuc();
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, "Ban chua chon");
+				}
+
+			}
+		});
+// ben kia
+		btnC_New.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				sp.setMaSP(txtProductID.getText());
+				sp.setTenSP(txtProductName.getText());
+				sp.setGia(Integer.parseInt(txtPrice.getText()));
+				sp.setSoluong(Integer.parseInt(txtQuantity.getText()));
+				sp.setMotaSP(txtDescription.getText());
+				String x = ((DanhMuc) cbbDanhMuc.getSelectedItem()).getMaDM();
+				sp.setMaDM(x);
+
+				sp.insert(sp);
+			}
+		});
+		btnC_Save.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
+		btnC_Remove.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if (txtProductID.getText() != "Product ID") {
+						sp.setMaSP(txtProductID.getText());
+						sp.delete(sp);
+					}
+
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, "Ban chua chon");
+				}
+			}
+		});
+//		eMenuItem.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				// TODO Auto-generated method stub
+//				int dialogResult = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn thoát không", "Thông báo",
+//						JOptionPane.YES_NO_OPTION);
+//				if (dialogResult == JOptionPane.YES_OPTION) {
+//					System.exit(0);
+//				}
+//			}
+//		});
+		//danh muc
+		cbbDanhMuc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if (cbbDanhMuc.getSelectedIndex() == -1)
+					return;
+				dmSelected = (DanhMuc) cbbDanhMuc.getSelectedItem();
+			}
+		});
+		// click
+		JL_SanPham.addMouseListener(new MouseListener() {
+			public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+			}
+			public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+			}
+			public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+			}
+			public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+			}
+			public void mouseClicked(MouseEvent e) {
+			// TODO Auto-generated method stub
+				if(JL_SanPham.getSelectedIndex()==-1)
+					return;
+				maDM = JL_SanPham.getSelectedValue().ge();
+				tenDM=JL_SanPham.getSelectedValue().getTenDM();
+
+				sp.showSP_InList(tableTB, maDM);
+
+			}
+		});
+	}
+
+	private void addcontrols() {
+		getContentPane().setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		JMenu mnNewMenu = new JMenu("File");
+		getContentPane().add(mnNewMenu);
+
+		JPanel pnMain = new JPanel();
+		getContentPane().add(pnMain);
+		pnMain.setLayout(new BorderLayout(0, 0));
+
+		JPanel pnTitle = new JPanel();
+		pnMain.add(pnTitle, BorderLayout.NORTH);
+		pnMain.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10, 10, 10, 10), null));
+
+		JLabel lbltitle = new JLabel("QUẢN LÝ SẢN PHẨM");
+		lbltitle.setForeground(Color.BLUE);
+		lbltitle.setFont(new Font("Times New Roman", Font.PLAIN, 29));
+		pnTitle.add(lbltitle);
+
+		JPanel pnLeft = new JPanel();
+		pnMain.add(pnLeft, BorderLayout.WEST);
+		pnLeft.setLayout(new BorderLayout(0, 0));
+
+		JPanel pnL_list = new JPanel();
+		pnLeft.add(pnL_list, BorderLayout.CENTER);
+		pnL_list.setLayout(null);
+
+		JPanel pn_Add_List = new JPanel();
+		pn_Add_List.setBounds(10, 5, 217, 530);
+		pn_Add_List.setBorder(BorderFactory.createTitledBorder("Danh mục sản phẩm"));
+		pnL_list.add(pn_Add_List);
+		pn_Add_List.setLayout(new BoxLayout(pn_Add_List, BoxLayout.X_AXIS));
+
+		JL_SanPham = new JList();
+		pn_Add_List.add(JL_SanPham);
+		JL_SanPham.setMaximumSize(new Dimension(200, 500));
+		JL_SanPham.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+
+		JPanel pnL_button = new JPanel();
+		pnLeft.add(pnL_button, BorderLayout.SOUTH);
+
+		btnL_New = new JButton("New");
+
+		btnL_New.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		pnL_button.add(btnL_New);
+
+		btnL_Update = new JButton("Update");
+
+		btnL_Update.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		pnL_button.add(btnL_Update);
+
+		btnL_Remove = new JButton("Remove");
+
+		btnL_Remove.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		pnL_button.add(btnL_Remove);
+
+		JPanel pnCenter = new JPanel();
+		pnMain.add(pnCenter, BorderLayout.CENTER);
+		pnCenter.setLayout(new BorderLayout(0, 0));
+
+		JPanel pnC_Table = new JPanel();
+		pnCenter.add(pnC_Table, BorderLayout.NORTH);
+		pnC_Table.setLayout(new BoxLayout(pnC_Table, BoxLayout.Y_AXIS));
+
+		JPanel pnTT = new JPanel();
+		pnC_Table.add(pnTT);
+
+		JLabel lblThongTin = new JLabel("Thông tin chi tiết");
+		lblThongTin.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		pnTT.add(lblThongTin);
+
+		JPanel pnTable = new JPanel();
+		pnC_Table.add(pnTable);
+
+		tableTB = new JTable();
+
+		DefaultTableModel dtmProduct = new DefaultTableModel();
+//		dtmProduct.addColumn("Product ID");
+//		dtmProduct.addColumn("Product Name");
+//		dtmProduct.addColumn("UnitPrice");
+//		dtmProduct.addColumn("Quantity");
+//		dtmProduct.addColumn("Description");
+
+		tableTB = new JTable(dtmProduct);
+
+		tableTB.setDefaultEditor(Object.class, null);
+		pnTable.setLayout(new BoxLayout(pnTable, BoxLayout.X_AXIS));
+		tableTB.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10, 10, 10, 10), null));
+
+		pnTable.add(tableTB);
+
+		JPanel pnC_center = new JPanel();
+		pnCenter.add(pnC_center, BorderLayout.CENTER);
+		pnC_center.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+
+		pnLeft.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10, 10, 10, 10), new EtchedBorder()));
+		pnCenter.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10, 10, 10, 10), new EtchedBorder()));
+
+		JPanel pnCen_Main = new JPanel();
+		pnC_center.add(pnCen_Main);
+		pnCen_Main.setLayout(new GridLayout(0, 2, 10, 10));
+
+		JLabel lblCaterogy = new JLabel("Caterogy:");
+		lblCaterogy.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		pnCen_Main.add(lblCaterogy);
+
+		cbbDanhMuc = new JComboBox();
+		cbbDanhMuc.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		pnCen_Main.add(cbbDanhMuc);
+
+		JLabel lblProductID = new JLabel("Product ID");
+		lblProductID.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		pnCen_Main.add(lblProductID);
+
+		txtProductID = new JTextField();
+		txtProductID.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		txtProductID.setColumns(25);
+		pnCen_Main.add(txtProductID);
+
+		JLabel lblProductname = new JLabel("Product Name:");
+		lblProductname.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		pnCen_Main.add(lblProductname);
+
+		txtProductName = new JTextField();
+		txtProductName.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		txtProductName.setColumns(25);
+		pnCen_Main.add(txtProductName);
+
+		JLabel lblPrice = new JLabel("Unit Price:");
+		lblPrice.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		pnCen_Main.add(lblPrice);
+
+		txtPrice = new JTextField();
+		txtPrice.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		txtPrice.setColumns(25);
+		pnCen_Main.add(txtPrice);
+
+		JLabel lblQuantity = new JLabel("Quantity:");
+		lblQuantity.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		pnCen_Main.add(lblQuantity);
+
+		txtQuantity = new JTextField();
+		txtQuantity.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		txtQuantity.setColumns(25);
+		pnCen_Main.add(txtQuantity);
+
+		JLabel lblDescription = new JLabel("Description:");
+		lblDescription.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		pnCen_Main.add(lblDescription);
+
+		txtDescription = new JTextField();
+		txtDescription.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		txtDescription.setColumns(25);
+		pnCen_Main.add(txtDescription);
+
+		JPanel pnC_Bot = new JPanel();
+
+		pnCenter.add(pnC_Bot, BorderLayout.SOUTH);
+		pnC_Bot.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+
+		JPanel panel = new JPanel();
+		pnC_Bot.add(panel);
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+
+		btnC_New = new JButton("New");
+
+		btnC_New.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		panel.add(btnC_New);
+
+		btnC_Save = new JButton("Save");
+
+		btnC_Save.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		panel.add(btnC_Save);
+
+		btnC_Remove = new JButton("Remove");
+
+		btnC_Remove.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		panel.add(btnC_Remove);
+	}
+
+}

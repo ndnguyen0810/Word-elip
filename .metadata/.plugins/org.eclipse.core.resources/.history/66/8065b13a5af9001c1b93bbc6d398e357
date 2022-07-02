@@ -1,0 +1,100 @@
+package buoi9.bai1;
+
+import javax.swing.*;
+import javax.swing.border.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class DanhMucUI extends JFrame {
+
+	private JTextField txtCateID, txtCateName;
+
+	private JButton btnOK;
+	DanhMuc d = new DanhMuc();
+	QuanLySanPhamUI q = new QuanLySanPhamUI();
+	String name = QuanLySanPhamUI.nameBTN;
+	public DanhMucUI(String title) {
+		this.setTitle(title);
+		addcontrols();
+		addEvents();
+		if (QuanLySanPhamUI.nameBTN.equals("CapNhatDanhMuc")) {
+			txtCateID.setEditable(false);
+		}
+		
+	}
+
+	private void addEvents() {
+		btnOK.addActionListener(new ActionListener() {
+			DanhMuc d = new DanhMuc();
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				d.setMaDM(txtCateID.getText());
+				d.setTenDM(txtCateName.getText());
+				if(choose == 0) {
+					d.insert(d);
+					setVisible(false);
+				}else {;
+					d.Update(d);
+					setVisible(false);
+
+				}
+				QuanLySanPhamUI.loadListDM();
+			}
+		});
+
+	}
+
+	private void addcontrols() {
+		getContentPane().setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		JPanel pnMain = new JPanel();
+		getContentPane().add(pnMain);
+
+		BorderLayout borderLayout = (BorderLayout) getContentPane().getLayout();
+		borderLayout.setVgap(10);
+		borderLayout.setHgap(10);
+		pnMain.setLayout(new BoxLayout(pnMain, BoxLayout.Y_AXIS));
+		pnMain.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10, 10, 10, 10), null));
+
+		JPanel pnTop = new JPanel();
+		pnMain.add(pnTop);
+		pnTop.setLayout(new GridLayout(0, 2, 0, 0));
+
+		JLabel lblCateID = new JLabel("Cate ID:");
+		lblCateID.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		pnTop.add(lblCateID);
+
+		txtCateID = new JTextField();
+		txtCateID.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		txtCateID.setColumns(10);
+
+		pnTop.add(txtCateID);
+
+		JLabel lblCateName = new JLabel("Cate Name:");
+		lblCateName.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		pnTop.add(lblCateName);
+
+		txtCateName = new JTextField();
+		txtCateName.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		txtCateName.setColumns(10);
+		pnTop.add(txtCateName);
+
+		JPanel pnBot = new JPanel();
+		pnMain.add(pnBot);
+
+		btnOK = new JButton("OK");
+
+		btnOK.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		pnBot.add(btnOK);
+	}
+
+	public void ShowWindowDanhMuc() {
+
+		this.setSize(300, 130);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setLocationRelativeTo(null);
+		this.setResizable(false);
+		this.setVisible(true);
+		this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+	}
+}

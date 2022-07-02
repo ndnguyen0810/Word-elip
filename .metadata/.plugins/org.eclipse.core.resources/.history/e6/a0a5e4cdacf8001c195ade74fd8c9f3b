@@ -1,0 +1,102 @@
+package buoi9.bai1;
+
+import java.sql.*;
+
+import javax.swing.*;
+
+public class DanhMuc {
+
+	private String maDM;
+	private String tenDM;
+
+	public String getMaDM() {
+		return maDM;
+	}
+
+	public void setMaDM(String maDM) {
+		this.maDM = maDM;
+	}
+
+	public String getTenDM() {
+		return tenDM;
+	}
+
+	public void setTenDM(String tenDM) {
+		this.tenDM = tenDM;
+	}
+
+	public DanhMuc() {
+		super();
+		con = ConnectBuoi9_bai1.getConnection();
+	}
+
+	public DanhMuc(String maDM, String tenDM) {
+		super();
+		this.maDM = maDM;
+		this.tenDM = tenDM;
+	}
+
+	// xu ly
+
+	private Connection con;
+	ConnectBuoi9_bai1 MyCon = new ConnectBuoi9_bai1();
+
+	public void insert(DanhMuc d) {
+		try {
+			String sql = String.format("insert into danhmuc(madm, tendm) values ('%s', '%s')", d.maDM, d.tenDM);
+
+			PreparedStatement s = con.prepareStatement(sql);
+
+			if (s.executeUpdate() > 0) {
+				JOptionPane.showMessageDialog(null, "Thêm thành công");
+			} else {
+				JOptionPane.showMessageDialog(null, "Thêm thất bại");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public void delete(DanhMuc d) {
+		try {
+			String sql = String.format("delete from danhmuc where madm='%s'", d.maDM);
+//			System.err.println(sql);
+			PreparedStatement s = con.prepareStatement(sql);
+			if (s.executeUpdate() > 0) {
+				JOptionPane.showMessageDialog(null, "Xoá thành công");
+			} else {
+				JOptionPane.showMessageDialog(null, "Xoá thất bại");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public void Update(DanhMuc d) {
+		try {
+			String sql = String.format("update danhmuc set tendm='%s' where tendm='%s'", d.tenDM, d.tenDM);
+			PreparedStatement s = con.prepareStatement(sql);
+			if (s.executeUpdate() > 0) {
+				JOptionPane.showMessageDialog(null, "Cập nhật thành công");
+			} else {
+				JOptionPane.showMessageDialog(null, "Cập nhật thất bại");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public void showDM_InCombobox(JComboBox cbb) {
+		try {
+			ResultSet rs = MyCon.getInfo("select * from danhmuc");
+			while (rs.next()) {
+				String tenDM = rs.getString(1);
+				
+				cbb.addItem(tenDM);
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+}

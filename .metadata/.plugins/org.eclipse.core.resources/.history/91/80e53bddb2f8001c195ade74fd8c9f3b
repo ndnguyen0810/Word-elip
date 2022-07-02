@@ -1,0 +1,95 @@
+package buoi9.bai2;
+
+import java.sql.*;
+import java.util.*;
+
+import javax.swing.table.*;
+
+public class Sach {
+	private Connection conn;
+	ConnectBuoi9_bai2 connect = new ConnectBuoi9_bai2();
+
+	private String maSach;
+	private String tenSach;
+	private String maNXB;
+
+	public Sach(String maSach, String tenSach, String maNXB) {
+		super();
+		this.maSach = maSach;
+		this.tenSach = tenSach;
+		this.maNXB = maNXB;
+	}
+
+	public Sach() {
+		super();
+		conn = ConnectBuoi9_bai2.getConnection();
+	}
+
+	public String getMaSach() {
+		return this.maSach;
+	}
+
+	public void setMaSach(String maSach) {
+		this.maSach = maSach;
+	}
+
+	public String getTenSach() {
+		return this.tenSach;
+	}
+
+	public void setTenSach(String tenSach) {
+		this.tenSach = tenSach;
+	}
+
+	public String getMaNXB() {
+		return this.maNXB;
+	}
+
+	public void setMaNXB(String maNXB) {
+		this.maNXB = maNXB;
+	}
+
+	public ResultSet search(String manxb) {
+		ResultSet rs = null;
+		try {
+			Statement stmt = conn.createStatement();
+			String sql = "select * from sach where MANXB LIKE '%" + manxb + "%' ";
+			System.out.println("cc");
+			stmt.executeQuery(sql);
+			rs = stmt.getResultSet();
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+
+		}
+		return rs;
+	}
+
+	public void showSP_InTable(JTable tb, String manxb) {
+		try {
+			DefaultTableModel dtm = new DefaultTableModel();
+			ResultSet rs;
+			if (manxb == "") {
+				rs = connect.getInfo("select * from sach");
+			} else {
+				rs = search(manxb);
+			}
+			Vector<String> colName = new Vector<>();
+			colName.add("Mã Sách");
+			colName.add("Tên Sách");
+			colName.add("Nhà Xuất Bản");
+			Vector<String> row;
+			dtm.setColumnIdentifiers(colName);
+			dtm.addRow(colName);
+			while (rs.next()) {
+				row = new Vector<>();
+				row.add(rs.getString("MASACH"));
+				row.add(rs.getString("TENSACH"));
+				row.add(rs.getString("MANXB"));
+				dtm.addRow(row);
+			}
+			tb.setModel(dtm);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+}

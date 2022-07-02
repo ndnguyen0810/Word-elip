@@ -1,0 +1,71 @@
+package View.CaiDat;
+
+import javax.swing.JPanel;
+import javax.swing.BoxLayout;
+import javax.swing.border.TitledBorder;
+import java.awt.GridLayout;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.JPasswordField;
+import javax.swing.border.EmptyBorder;
+
+public class JP_DoiMatKhau extends JPanel {
+	private JPasswordField passwordField;
+	private JPasswordField passwordField_1;
+	private JPasswordField passwordField_2;
+
+	/**
+	 * Create the panel.
+	 */
+	public JP_DoiMatKhau() {
+		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		
+		JPanel pnMain = new JPanel();
+		pnMain.setBorder(new TitledBorder(null, "\u0110\u1ED5i m\u1EADt kh\u1EA9u", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		add(pnMain);
+		pnMain.setLayout(new BoxLayout(pnMain, BoxLayout.Y_AXIS));
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new EmptyBorder(30, 30, 30, 30));
+		pnMain.add(panel);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		
+		JPanel panel_2 = new JPanel();
+		panel.add(panel_2);
+		panel_2.setLayout(new GridLayout(4, 2, 0, 0));
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		panel_2.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		panel_2.add(lblNewLabel);
+		
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		panel_2.add(lblNewLabel_2);
+		
+		passwordField = new JPasswordField();
+		panel_2.add(passwordField);
+		
+		JLabel lblNewLabel_4 = new JLabel("New label");
+		panel_2.add(lblNewLabel_4);
+		
+		passwordField_1 = new JPasswordField();
+		panel_2.add(passwordField_1);
+		
+		JLabel lblNewLabel_3 = new JLabel("New label");
+		panel_2.add(lblNewLabel_3);
+		
+		passwordField_2 = new JPasswordField();
+		panel_2.add(passwordField_2);
+		
+		JPanel panel_1 = new JPanel();
+		pnMain.add(panel_1);
+		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.X_AXIS));
+		
+		JButton btnNewButton = new JButton("New button");
+		panel_1.add(btnNewButton);
+
+	}
+
+}

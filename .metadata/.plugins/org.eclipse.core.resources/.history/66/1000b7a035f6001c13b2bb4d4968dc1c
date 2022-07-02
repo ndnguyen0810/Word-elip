@@ -1,0 +1,181 @@
+package buoi9.bai2;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import java.awt.FlowLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import java.awt.GridLayout;
+import javax.swing.JTextField;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+public class SachUI extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTable table;
+
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					SachUI frame = new SachUI();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	public SachUI() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 878, 525);
+
+		addcontrols();
+	}
+
+	private void addcontrols() {
+		getContentPane();
+		JPanel pnMain = new JPanel();
+		pnMain.setBounds(0, 0, 864, 10);
+		pnMain.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10, 10, 10, 10), null));
+		getContentPane().add(pnMain);
+		pnMain.setLayout(new BorderLayout(0, 0));
+
+		JPanel pnMain_Top = new JPanel();
+		pnMain.add(pnMain_Top, BorderLayout.NORTH);
+		pnMain_Top.setLayout(new BoxLayout(pnMain_Top, BoxLayout.X_AXIS));
+
+		JPanel pn_MT_ThongTin = new JPanel();
+		pnMain_Top.add(pn_MT_ThongTin);
+		pn_MT_ThongTin.setLayout(new BoxLayout(pn_MT_ThongTin, BoxLayout.Y_AXIS));
+		pn_MT_ThongTin.setBorder(BorderFactory.createTitledBorder("Thông tin chi tiết"));
+		JPanel panel = new JPanel();
+		pn_MT_ThongTin.add(panel);
+
+		JLabel lbl_TTNXB = new JLabel("THÔNG TIN NHÀ XUẤT BẢN");
+		panel.add(lbl_TTNXB);
+
+		JPanel panel_1 = new JPanel();
+		pn_MT_ThongTin.add(panel_1);
+		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+
+		JPanel panel_3 = new JPanel();
+		panel_1.add(panel_3);
+		panel_3.setLayout(new GridLayout(4, 2, 10, 5));
+
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		panel_3.add(lblNewLabel_1);
+
+		textField = new JTextField();
+		textField.setColumns(10);
+		panel_3.add(textField);
+
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		panel_3.add(lblNewLabel_2);
+
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		panel_3.add(textField_1);
+
+		JLabel lblNewLabel_3 = new JLabel("New label");
+		panel_3.add(lblNewLabel_3);
+
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		panel_3.add(textField_2);
+
+		JLabel lblNewLabel_4 = new JLabel("New label");
+		panel_3.add(lblNewLabel_4);
+
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		panel_3.add(textField_3);
+
+		JPanel panel_2 = new JPanel();
+		pn_MT_ThongTin.add(panel_2);
+
+		JPanel panel_4 = new JPanel();
+		panel_2.add(panel_4);
+		panel_4.setLayout(new BoxLayout(panel_4, BoxLayout.LINE_AXIS));
+
+		JButton btnVeTruoc = new JButton("Về trước");
+		panel_4.add(btnVeTruoc);
+
+		JLabel lblNewLabel_5 = new JLabel("New label");
+		panel_4.add(lblNewLabel_5);
+
+		JButton btnVeSau = new JButton("Về sau");
+		panel_4.add(btnVeSau);
+
+		JPanel pn_MT_ThucHien = new JPanel();
+		pnMain_Top.add(pn_MT_ThucHien);
+		pn_MT_ThucHien.setLayout(new BoxLayout(pn_MT_ThucHien, BoxLayout.PAGE_AXIS));
+		pn_MT_ThucHien.setBorder(BorderFactory.createTitledBorder("Thực hiện"));
+		JButton btnThem = new JButton("Thêm");
+		pn_MT_ThucHien.add(btnThem);
+
+		JButton btnLuu = new JButton("Lưu");
+		pn_MT_ThucHien.add(btnLuu);
+
+		JButton btnSua = new JButton("Sửa");
+		pn_MT_ThucHien.add(btnSua);
+
+		JButton btnXoa = new JButton("Xoá");
+		pn_MT_ThucHien.add(btnXoa);
+
+		JPanel pnMain_Cen = new JPanel();
+		pnMain.add(pnMain_Cen, BorderLayout.CENTER);
+		pnMain_Cen.setLayout(new BoxLayout(pnMain_Cen, BoxLayout.X_AXIS));
+
+		table = new JTable();
+		table.setModel(new DefaultTableModel(new Object[][] { { null, null, null, null, null, null, null, null },
+				{ null, null, null, null, null, null, null, null }, { null, null, null, null, null, null, null, null },
+				{ null, null, null, null, null, null, null, null }, { null, null, null, null, null, null, null, null },
+				{ null, null, null, null, null, null, null, null }, { null, null, null, null, null, null, null, null },
+				{ null, null, null, null, null, null, null, null }, { null, null, null, null, null, null, null, null },
+				{ null, null, null, null, null, null, null, null }, },
+				new String[] { "New column", "New column", "New column", "New column", "New column", "New column",
+						"New column", "New column" }));
+		pnMain_Cen.add(table);
+
+		JPanel pnMain_Bot = new JPanel();
+		pnMain.add(pnMain_Bot, BorderLayout.SOUTH);
+		pnMain_Bot.setLayout(new BorderLayout(0, 0));
+
+		JPanel panel_5 = new JPanel();
+		pnMain_Bot.add(panel_5, BorderLayout.WEST);
+		panel_5.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+
+		JButton btnNewButton_6 = new JButton("New button");
+		panel_5.add(btnNewButton_6);
+
+		JPanel panel_6 = new JPanel();
+		pnMain_Bot.add(panel_6, BorderLayout.CENTER);
+		panel_6.setLayout(new BoxLayout(panel_6, BoxLayout.Y_AXIS));
+
+		JLabel lbl_INLazy = new JLabel("I'm Not Lazy");
+		panel_6.add(lbl_INLazy);
+
+		JLabel lblNewLabel_7 = new JLabel("I Study Hard...mệt...mệt...");
+		panel_6.add(lblNewLabel_7);
+
+		JPanel panel_7 = new JPanel();
+		pnMain_Bot.add(panel_7, BorderLayout.EAST);
+
+	}
+
+}

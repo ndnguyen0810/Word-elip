@@ -1,0 +1,92 @@
+package View.Main;
+
+import javax.swing.*;
+import java.awt.*;
+import javax.swing.border.*;
+
+
+public class ViewMain extends JFrame {
+
+	public static void main(String[] args) {
+		new ViewMain().ShowMain();
+	}
+
+
+	public ViewMain() {
+		
+		addcontrols();
+		
+	}
+
+	private void ShowMain() {
+		this.setSize(1200, 600);
+//		this.setTitle("Đăng nhập ứng dụng");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLocationRelativeTo(null);
+		this.setResizable(false);
+		this.setVisible(true);
+		this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+		this.setUndecorated(true);
+		
+	}
+
+	private void addcontrols() {
+		
+		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
+		
+		JPanel pnMain = new JPanel();
+		pnMain.setBorder(new EmptyBorder(20, 20, 20, 20));
+		getContentPane().add(pnMain);
+		pnMain.setLayout(new BorderLayout(0, 0));
+		
+		JPanel pn_Mains = new JPanel();
+		pnMain.add(pn_Mains, BorderLayout.NORTH);
+		pn_Mains.setLayout(new BoxLayout(pn_Mains, BoxLayout.X_AXIS));
+		
+		JPanel pnMenu = new JPanel();
+		pn_Mains.add(pnMenu);
+		pnMenu.setLayout(new GridLayout(1, 7, 20, 20));
+		
+		JButton btnNewButton = new JButton("Trang chủ");
+		pnMenu.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Bán hàng");
+		pnMenu.add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("Quản lý");
+		pnMenu.add(btnNewButton_2);
+		
+		JButton btnNewButton_3 = new JButton("Thống kê");
+		pnMenu.add(btnNewButton_3);
+		
+		JButton btnNewButton_4 = new JButton("Cài đặt");
+		pnMenu.add(btnNewButton_4);
+		
+		JPanel pnTT = new JPanel();
+		pnMenu.add(pnTT);
+		pnTT.setLayout(new BoxLayout(pnTT, BoxLayout.Y_AXIS));
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		pnTT.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		pnTT.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		pnTT.add(lblNewLabel_2);
+		
+		JPanel pnMenuRight = new JPanel();
+		pnMenu.add(pnMenuRight);
+		pnMenuRight.setLayout(new BoxLayout(pnMenuRight, BoxLayout.Y_AXIS));
+		
+		JLabel lblNewLabel_3 = new JLabel("New label");
+		pnMenuRight.add(lblNewLabel_3);
+		
+		JButton btnNewButton_5 = new JButton("Đăng xuất");
+		pnMenuRight.add(btnNewButton_5);
+		
+		JPanel pnChils = new JPanel();
+		pnMain.add(pnChils, BorderLayout.CENTER);
+		
+	}
+}

@@ -1,0 +1,71 @@
+package View.QuanLy;
+
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import javax.swing.JButton;
+import java.awt.GridLayout;
+import javax.swing.BoxLayout;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+
+public class JP_QL_ThucDon extends JPanel {
+	private JTable table;
+
+	/**
+	 * Create the panel.
+	 */
+	public JP_QL_ThucDon() {
+		setLayout(new BorderLayout(0, 0));
+		
+		JPanel pnTop = new JPanel();
+		add(pnTop, BorderLayout.NORTH);
+		
+		JPanel pnCenter = new JPanel();
+		add(pnCenter, BorderLayout.CENTER);
+		pnCenter.setLayout(new BoxLayout(pnCenter, BoxLayout.Y_AXIS));
+		
+		JPanel panel = new JPanel();
+		pnCenter.add(panel);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		
+		JScrollPane scrollPane = new JScrollPane();
+		panel.add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		
+		JPanel panel_1 = new JPanel();
+		pnCenter.add(panel_1);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		panel_1.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		panel_1.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		panel_1.add(lblNewLabel_2);
+		
+		JPanel pnRight = new JPanel();
+		add(pnRight, BorderLayout.EAST);
+		pnRight.setLayout(new BorderLayout(0, 0));
+		
+		JPanel pnBTN = new JPanel();
+		pnRight.add(pnBTN, BorderLayout.NORTH);
+		pnBTN.setLayout(new GridLayout(3, 1, 0, 0));
+		
+		JButton btnNewButton = new JButton("New button");
+		pnBTN.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("New button");
+		pnBTN.add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("New button");
+		pnBTN.add(btnNewButton_2);
+
+	}
+
+}

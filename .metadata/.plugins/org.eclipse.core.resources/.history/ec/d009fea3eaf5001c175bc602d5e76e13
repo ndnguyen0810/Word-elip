@@ -1,0 +1,181 @@
+package buoi9.bai1;
+
+import java.awt.*;
+import java.sql.*;
+import java.util.Vector;
+
+import javax.swing.*;
+import javax.swing.table.*;
+
+
+public class SanPham {
+
+	public SanPham(String maSP, String tenSP, int gia, int soluong, String motaSP, String maDM) {
+		super();
+		this.maSP = maSP;
+		this.tenSP = tenSP;
+		this.gia = gia;
+		this.soluong = soluong;
+		this.motaSP = motaSP;
+		this.maDM = maDM;
+	}
+
+	public SanPham() {
+		super();
+		con = ConnectBuoi9_bai1.getConnection();
+	}
+
+	private String maSP;
+	private String tenSP;
+	private int gia;
+	private int soluong;
+	private String motaSP;
+	private String maDM;
+
+	public String getMaSP() {
+		return maSP;
+	}
+
+	public void setMaSP(String maSP) {
+		this.maSP = maSP;
+	}
+
+	public String getTenSP() {
+		return tenSP;
+	}
+
+	public void setTenSP(String tenSP) {
+		this.tenSP = tenSP;
+	}
+
+	public int getGia() {
+		return gia;
+	}
+
+	public void setGia(int gia) {
+		this.gia = gia;
+	}
+
+	public int getSoluong() {
+		return soluong;
+	}
+
+	public void setSoluong(int soluong) {
+		this.soluong = soluong;
+	}
+
+	public String getMotaSP() {
+		return motaSP;
+	}
+
+	public void setMotaSP(String motaSP) {
+		this.motaSP = motaSP;
+	}
+
+	public String getMaDM() {
+		return maDM;
+	}
+
+	public void setMaDM(String maDM) {
+		this.maDM = maDM;
+	}
+
+	/// xử lý nè babi
+
+	private Connection con;
+	ConnectBuoi9_bai1 MyCon = new ConnectBuoi9_bai1();
+
+	public void insert(SanPham sp) {
+		try {
+			String sql = String.format(
+					"insert into sanpham(masp, tensp, gia, soluong,mota. madm)values ('%s', '%s',%d, %d, '%s','%s')",
+					sp.maSP, sp.tenSP, sp.gia, sp.soluong, sp.motaSP, sp.maDM);
+			PreparedStatement s = con.prepareStatement(sql);
+			if (s.executeUpdate() > 0) {
+				System.out.println("Thêm thành công");
+			} else {
+				System.out.println("Thêm thất bại");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public void delete(SanPham sp) {
+		try {
+			String sql = String.format("delete from sanpham where masp='%s'", sp.maSP);
+			PreparedStatement s = con.prepareStatement(sql);
+			if (s.executeUpdate() > 0) {
+				System.out.println("Xoá thành công");
+			} else {
+				System.out.println("Xoá thất bại");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public void Update(SanPham sp) {
+		try {
+			String sql = String.format(
+					"update sanpham set masp='%s', tensp='%s', gia=%d, soluong=%d, mota='%s' madm='%s' where masp=%s'",
+					sp.maSP, sp.tenSP, sp.gia, sp.soluong, sp.motaSP, sp.maDM, sp.maSP);
+			PreparedStatement s = con.prepareStatement(sql);
+			if (s.executeUpdate() > 0) {
+				System.out.println("Cập nhật thành công");
+			} else {
+				System.out.println("Cập nhật thất bại");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public void showSP_InTable(JTable tb) {
+		try {
+			DefaultTableModel dtm = new DefaultTableModel();
+			ResultSet rs = MyCon.getInfo("select * from sanpham");
+			Vector<String> colName = new Vector<>();
+			colName.add("Product ID");
+			colName.add("Product Name");
+			colName.add("Unit Price");
+			colName.add("Quantity");
+			colName.add("Description");
+			colName.add("Caterogy name");
+			ResultSetMetaData data = rs.getMetaData();
+			int count = data.getColumnCount();
+			Vector<String> row;
+			dtm.setColumnIdentifiers(colName);
+			dtm.addRow(colName);
+			while (rs.next()) {
+				row = new Vector<>();
+				row.add(rs.getString("masp"));
+				row.add(rs.getString("ten"));
+				row.add(rs.getString("gia"));
+				row.add(rs.getString("soluong"));
+				row.add(rs.getString("mota"));
+				row.add(rs.getString("madm"));
+				dtm.addRow(row);
+			}
+			tb.setModel(dtm);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	public void showSP_InList(JList jList_SP) {
+		try {
+			DefaultListModel model = new DefaultListModel();
+			ResultSet resultSet = MyCon.getInfo("select * from danhmuc");
+			while (resultSet.next()) //go through each row that your query returns
+		    {
+		        String ItemList2 = resultSet.getString("TenDM"); //get the element in column "item_code"
+		        model.addElement(ItemList2); 
+		    }
+			jList_SP.setModel(model);
+
+		    resultSet.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+}

@@ -1,0 +1,202 @@
+package buoi9.bai2;
+
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.border.*;
+
+
+public class NhaXuatBanUI extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JTextField txtMaNXB;
+	private JTextField txtTenNXB;
+	private JTextField txtDiaChi;
+	private JTextField txtSDT;
+	private JTable table;
+
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					NhaXuatBanUI frame = new NhaXuatBanUI();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	public NhaXuatBanUI() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 878, 525);
+
+		addcontrols();
+	}
+
+	private void addcontrols() {
+		getContentPane();
+		JPanel pnMain = new JPanel();
+		pnMain.setBounds(0, 0, 864, 10);
+		pnMain.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(10, 10, 10, 10), null));
+		getContentPane().add(pnMain);
+		pnMain.setLayout(new BorderLayout(0, 0));
+
+		JPanel pnMain_Top = new JPanel();
+		pnMain.add(pnMain_Top, BorderLayout.NORTH);
+		pnMain_Top.setLayout(new BoxLayout(pnMain_Top, BoxLayout.X_AXIS));
+
+		JPanel pn_MT_ThongTin = new JPanel();
+		pnMain_Top.add(pn_MT_ThongTin);
+		pn_MT_ThongTin.setLayout(new BoxLayout(pn_MT_ThongTin, BoxLayout.Y_AXIS));
+		pn_MT_ThongTin.setBorder(BorderFactory.createTitledBorder("Thông tin chi tiết"));
+		JPanel pnTtle = new JPanel();
+		pn_MT_ThongTin.add(pnTtle);
+
+		JLabel lbl_TTNXB = new JLabel("THÔNG TIN NHÀ XUẤT BẢN");
+		lbl_TTNXB.setForeground(Color.BLUE);
+		lbl_TTNXB.setFont(new Font("Arial", Font.PLAIN, 26));
+		pnTtle.add(lbl_TTNXB);
+
+		JPanel pnChuaG = new JPanel();
+		pn_MT_ThongTin.add(pnChuaG);
+		pnChuaG.setLayout(new BoxLayout(pnChuaG, BoxLayout.X_AXIS));
+
+		JPanel pnGridl = new JPanel();
+		pnGridl.setLayout(new GridLayout(4, 2, 10, 5));
+
+		JLabel lblNXB = new JLabel("Mã nhà xuất bản");
+		lblNXB.setFont(new Font("Arial", Font.PLAIN, 15));
+		pnGridl.add(lblNXB);
+
+		txtMaNXB = new JTextField();
+		txtMaNXB.setFont(new Font("Arial", Font.PLAIN, 15));
+		txtMaNXB.setColumns(30);
+		pnGridl.add(txtMaNXB);
+
+		JLabel lblTenNXB = new JLabel("Tên nhà xuất bản");
+		lblTenNXB.setFont(new Font("Arial", Font.PLAIN, 15));
+		pnGridl.add(lblTenNXB);
+
+		txtTenNXB = new JTextField();
+		txtTenNXB.setFont(new Font("Arial", Font.PLAIN, 15));
+		txtTenNXB.setColumns(30);
+		pnGridl.add(txtTenNXB);
+
+		JLabel lblDiaChi = new JLabel("Địa chỉ");
+		lblDiaChi.setFont(new Font("Arial", Font.PLAIN, 15));
+		pnGridl.add(lblDiaChi);
+
+		txtDiaChi = new JTextField();
+		txtDiaChi.setFont(new Font("Arial", Font.PLAIN, 15));
+		txtDiaChi.setColumns(30);
+		pnGridl.add(txtDiaChi);
+
+		JLabel lblDienThoai = new JLabel("Điện thoại");
+		lblDienThoai.setFont(new Font("Arial", Font.PLAIN, 15));
+		pnGridl.add(lblDienThoai);
+
+		txtSDT = new JTextField();
+		txtSDT.setFont(new Font("Arial", Font.PLAIN, 15));
+		txtSDT.setColumns(30);
+		pnGridl.add(txtSDT);
+		pnChuaG.add(pnGridl);
+
+		JPanel pn_ChuaNut = new JPanel();
+		pn_MT_ThongTin.add(pn_ChuaNut);
+
+		JPanel pnNut = new JPanel();
+		pn_ChuaNut.add(pnNut);
+		pnNut.setLayout(new BoxLayout(pnNut, BoxLayout.LINE_AXIS));
+
+		JButton btnVeTruoc = new JButton("Về trước");
+		btnVeTruoc.setFont(new Font("Arial", Font.PLAIN, 15));
+		pnNut.add(btnVeTruoc);
+
+		JLabel lblChiSo = new JLabel("1/1");
+		lblChiSo.setFont(new Font("Arial", Font.PLAIN, 15));
+		pnNut.add(lblChiSo);
+
+		JButton btnVeSau = new JButton("Về sau");
+		btnVeSau.setFont(new Font("Arial", Font.PLAIN, 15));
+		pnNut.add(btnVeSau);
+
+		JPanel pn_MT_ThucHien = new JPanel();
+		pnMain_Top.add(pn_MT_ThucHien);
+		pn_MT_ThucHien.setBorder(new TitledBorder(
+				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)),
+				"Th\u1EF1c hi\u1EC7n", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		pn_MT_ThucHien.setLayout(new GridLayout(4, 1, 0, 5));
+
+		JButton btnThem = new JButton("Thêm");
+		btnThem.setIcon(new ImageIcon(NhaXuatBanUI.class.getResource("/buoi9/image/add.png")));
+		btnThem.setFont(new Font("Arial", Font.PLAIN, 15));
+		pn_MT_ThucHien.add(btnThem);
+
+		JButton btnLuu = new JButton("Lưu");
+		btnLuu.setIcon(new ImageIcon(NhaXuatBanUI.class.getResource("/buoi9/image/save.png")));
+		btnLuu.setFont(new Font("Arial", Font.PLAIN, 15));
+		pn_MT_ThucHien.add(btnLuu);
+
+		JButton btnSua = new JButton("Sửa");
+		btnSua.setIcon(new ImageIcon(NhaXuatBanUI.class.getResource("/buoi9/image/edit.png")));
+		btnSua.setFont(new Font("Arial", Font.PLAIN, 15));
+		pn_MT_ThucHien.add(btnSua);
+
+		JButton btnXoa = new JButton("Xoá");
+		btnXoa.setIcon(new ImageIcon(NhaXuatBanUI.class.getResource("/buoi9/image/delete.png")));
+		btnXoa.setFont(new Font("Arial", Font.PLAIN, 15));
+		pn_MT_ThucHien.add(btnXoa);
+
+		JPanel pnMain_Cen = new JPanel();
+		pnMain_Cen.setBorder(new TitledBorder(null, "Danh s\u00E1ch nh\u00E0 xu\u1EA5t b\u1EA3n", TitledBorder.LEADING,
+				TitledBorder.TOP, null, null));
+		pnMain.add(pnMain_Cen, BorderLayout.CENTER);
+		pnMain_Cen.setLayout(new BoxLayout(pnMain_Cen, BoxLayout.X_AXIS));
+
+		table = new JTable();
+		table.setModel(new DefaultTableModel(new Object[][] { { null, null, null, null, null, null, null, null },
+				{ null, null, null, null, null, null, null, null }, { null, null, null, null, null, null, null, null },
+				{ null, null, null, null, null, null, null, null }, { null, null, null, null, null, null, null, null },
+				{ null, null, null, null, null, null, null, null }, { null, null, null, null, null, null, null, null },
+				{ null, null, null, null, null, null, null, null }, { null, null, null, null, null, null, null, null },
+				{ null, null, null, null, null, null, null, null }, },
+				new String[] { "New column", "New column", "New column", "New column", "New column", "New column",
+						"New column", "New column" }));
+		pnMain_Cen.add(table);
+
+		JPanel pnMain_Bot = new JPanel();
+		pnMain.add(pnMain_Bot, BorderLayout.SOUTH);
+		pnMain_Bot.setLayout(new BorderLayout(0, 0));
+
+		JPanel pnTimKiem = new JPanel();
+		pnMain_Bot.add(pnTimKiem, BorderLayout.WEST);
+		pnTimKiem.setLayout(new BoxLayout(pnTimKiem, BoxLayout.X_AXIS));
+
+		JButton btnTimKiem = new JButton("Tìm kiếm");
+		btnTimKiem.setIcon(new ImageIcon(NhaXuatBanUI.class.getResource("/buoi9/image/seach.png")));
+		btnTimKiem.setFont(new Font("Arial", Font.PLAIN, 15));
+		pnTimKiem.add(btnTimKiem);
+
+		JPanel pnText = new JPanel();
+		pnMain_Bot.add(pnText, BorderLayout.CENTER);
+		pnText.setLayout(new BoxLayout(pnText, BoxLayout.Y_AXIS));
+
+		JLabel lbl_INLazy = new JLabel("I'm Not Lazy");
+		lbl_INLazy.setFont(new Font("Arial", Font.PLAIN, 20));
+		pnText.add(lbl_INLazy);
+
+		JLabel lblNewLabel_7 = new JLabel("I Study Hard...mệt...mệt...");
+		lblNewLabel_7.setFont(new Font("Arial", Font.PLAIN, 20));
+		pnText.add(lblNewLabel_7);
+
+		JPanel pnImage = new JPanel();
+		pnMain_Bot.add(pnImage, BorderLayout.EAST);
+
+	}
+
+}

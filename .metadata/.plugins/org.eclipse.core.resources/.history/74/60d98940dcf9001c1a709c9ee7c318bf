@@ -1,0 +1,14 @@
+package View.QuanLy;
+
+import javax.swing.JPanel;
+
+public class JP_QuanLy extends JPanel {
+
+	/**
+	 * Create the panel.
+	 */
+	public JP_QuanLy() {
+
+	}
+
+}

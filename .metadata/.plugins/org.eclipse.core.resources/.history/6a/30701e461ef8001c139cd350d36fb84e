@@ -1,0 +1,136 @@
+package buoi9.bai2;
+
+import java.sql.*;
+import java.util.Vector;
+
+import javax.swing.*;
+import javax.swing.table.*;
+
+public class NhaXuatBan {
+	private String manxb, tennxb, diachi, phone;
+	private Connection con;
+	ConnectBuoi9_bai2 MyCon = new ConnectBuoi9_bai2();
+
+	public NhaXuatBan() {
+		super();
+		ConnectBuoi9_bai2.getConnection();
+	}
+
+	public NhaXuatBan(String manxb, String tennxb, String diachi, String phone) {
+		super();
+		this.manxb = manxb;
+		this.tennxb = tennxb;
+		this.diachi = diachi;
+		this.phone = phone;
+	}
+
+	public String getManxb() {
+		return manxb;
+	}
+
+	public void setManxb(String manxb) {
+		this.manxb = manxb;
+	}
+
+	public String getTennxb() {
+		return tennxb;
+	}
+
+	public void setTennxb(String tennxb) {
+		this.tennxb = tennxb;
+	}
+
+	public String getDiachi() {
+		return diachi;
+	}
+
+	public void setDiachi(String diachi) {
+		this.diachi = diachi;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+///xu ly
+	public void insert(NhaXuatBan nxb) {
+		try {
+			String sql = String.format(
+					"insert into nhaxuatban(manxb, tennxb, diachi, phone)values ('%s', '%s''%s','%s')",
+					nxb.manxb, nxb.tennxb, nxb.diachi, nxb.phone);
+			PreparedStatement s = con.prepareStatement(sql);
+			if (s.executeUpdate() > 0) {
+				System.out.println("Thêm thành công");
+			} else {
+				System.out.println("Thêm thất bại");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public void delete(NhaXuatBan nxb) {
+		try {
+			String sql = String.format("delete from NhaXuatBan where manxb='%s'", nxb.manxb);
+			PreparedStatement s = con.prepareStatement(sql);
+			if (s.executeUpdate() > 0) {
+				System.out.println("Xoá thành công");
+			} else {
+				System.out.println("Xoá thất bại");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public void Update(NhaXuatBan nxb) {
+		try {
+			String sql = String.format(
+					"update sanpham set manxb='%s', tennxb='%s', diachi=%d, phone=%'s', where manxb=%s'",
+					nxb.manxb, nxb.tennxb, nxb.diachi,nxb.phone, nxb.manxb);
+			PreparedStatement s = con.prepareStatement(sql);
+			if (s.executeUpdate() > 0) {
+				System.out.println("Cập nhật thành công");
+			} else {
+				System.out.println("Cập nhật thất bại");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public void shownxb_InTable(JTable tb) {
+		String c = " ";
+		try {
+			DefaultTableModel dtm = new DefaultTableModel();
+			ResultSet rs = MyCon.getInfo("select * from sanpham where masp like '%"+c+"%'");
+			Vector<String> colName = new Vector<>();
+			colName.add("Product ID");
+			colName.add("Product Name");
+			colName.add("Unit Price");
+			colName.add("Quantity");
+			colName.add("Description");
+			colName.add("Caterogy name");
+			Vector<String> row;
+			dtm.setColumnIdentifiers(colName);
+			dtm.addRow(colName);
+			while (rs.next()) {
+				row = new Vector<>();
+				row.add(rs.getString("manxb"));
+				row.add(rs.getString("ten"));
+				row.add(rs.getString("gia"));
+				row.add(rs.getString("soluong"));
+				row.add(rs.getString("mota"));
+				row.add(rs.getString("madm"));
+				dtm.addRow(row);
+			}
+			tb.setModel(dtm);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+}
