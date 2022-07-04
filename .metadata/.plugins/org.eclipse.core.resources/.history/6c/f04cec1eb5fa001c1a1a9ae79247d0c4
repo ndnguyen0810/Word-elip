@@ -1,0 +1,159 @@
+package Models;
+
+import java.sql.*;
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
+public class TaiKhoan {
+	// constructor
+	private int maTK;
+	private String userName, passWord, Hoten;
+	private Connection con = MyConnect.getConnection();
+
+	public TaiKhoan(int maTK, String userName, String passWord, String hoten) {
+		super();
+		this.maTK = maTK;
+		this.userName = userName;
+		this.passWord = passWord;
+		Hoten = hoten;
+	}
+
+	public TaiKhoan() {
+		super();
+//		MyConnect.getConnection();
+	}
+
+	public int getMaTK() {
+		return maTK;
+	}
+
+	public void setMaTK(int maTK) {
+		this.maTK = maTK;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPassWord() {
+		return passWord;
+	}
+
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
+	}
+
+	public String getHoten() {
+		return Hoten;
+	}
+
+	public void setHoten(String hoten) {
+		Hoten = hoten;
+	}
+
+	// xu ly
+
+	public void Insert(TaiKhoan tk) {
+		try {
+			String sql = String.format("insert into taikhoan (username,password, hoten) values ('%s', '%s','%s')",
+					tk.getUserName(), tk.getPassWord(), tk.getHoten());
+			PreparedStatement s = con.prepareStatement(sql);
+			if (s.executeUpdate() > 0) {
+				JOptionPane.showInternalMessageDialog(null, "Thêm thành công");
+			} else {
+				JOptionPane.showInternalMessageDialog(null, "Thêm thất bại");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public void UpdateBan(TaiKhoan tk) {
+		try {
+			String sql = String.format("update taikhoan set username='%s',password='%s',hoten='%s' where matk=%d",
+					tk.getUserName(), tk.getPassWord(), tk.getHoten(), tk.getMaTK());
+			PreparedStatement s = con.prepareStatement(sql);
+			if (s.executeUpdate() > 0) {
+				JOptionPane.showInternalMessageDialog(null, "Cập nhật tài khoản thành công");
+			} else {
+				JOptionPane.showInternalMessageDialog(null, "Cập nhật tài khoản thất bại");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public void Delete(TaiKhoan tk) {
+		try {
+			String sql = String.format("delete form taikhoan  where matk=%d", tk.getMaTK());
+			PreparedStatement s = con.prepareStatement(sql);
+			if (s.executeUpdate() > 0) {
+				JOptionPane.showInternalMessageDialog(null, "Xoá tài khoản thành công");
+			} else {
+				JOptionPane.showInternalMessageDialog(null, "Xoá tài khoản thất bại");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public boolean CheckLogin(TaiKhoan tk) {
+		boolean check = false;
+		String sql = String.format("select * from taikhoan where username='%s' and password='%s'", tk.getUserName(),
+				tk.getPassWord());
+		try {
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+
+			while (rs.next()) {
+				check = true;
+			}
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi đăng nhập !");
+		}
+		return check;
+	}
+
+	public TaiKhoan GetTaiKhoan(String name, String pass) {
+		TaiKhoan tk = null;
+		String sql = String.format("select * from taikhoan where username='%s' and password='%s'", name, pass);
+		try {
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				tk = new TaiKhoan(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
+			}
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "lỗi !");
+		}
+		return tk;
+	}
+
+	public ArrayList<TaiKhoan> ShowTable(int matk) {
+		ArrayList<TaiKhoan> arrTK = null;
+		String sql;
+		if (matk == 0)
+			sql = "Select * From taikhoan";
+		else
+			sql = "Select * From taikhoan Where matk = " + matk;
+		try {
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			arrTK = new ArrayList<TaiKhoan>();
+			while (rs.next()) {
+				TaiKhoan tk = new TaiKhoan(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4));
+				arrTK.add(tk);
+			}
+			con.close();
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi !");
+		}
+		return arrTK;
+	}
+
+}

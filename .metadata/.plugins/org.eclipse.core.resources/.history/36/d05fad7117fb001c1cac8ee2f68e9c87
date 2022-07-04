@@ -1,0 +1,114 @@
+package Models;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
+
+public class DsOrder {
+	public DsOrder(String tenMon, String maMon, String dVT, int gia, int soLuong, int maHoaDon) {
+		super();
+		TenMon = tenMon;
+		MaMon = maMon;
+		DVT = dVT;
+		Gia = gia;
+		SoLuong = soLuong;
+		MaHoaDon = maHoaDon;
+	}
+
+	private String TenMon, MaMon, DVT;
+	private int Gia, SoLuong, MaHoaDon;
+
+	public DsOrder() {
+		super();
+	}
+
+	public String getTenMon() {
+		return TenMon;
+	}
+
+	public void setTenMon(String tenMon) {
+		TenMon = tenMon;
+	}
+
+	public String getMaMon() {
+		return MaMon;
+	}
+
+	public void setMaMon(String maMon) {
+		MaMon = maMon;
+	}
+
+	public String getDVT() {
+		return DVT;
+	}
+
+	public void setDVT(String dVT) {
+		DVT = dVT;
+	}
+
+	public int getGia() {
+		return Gia;
+	}
+
+	public void setGia(int gia) {
+		Gia = gia;
+	}
+
+	public int getSoLuong() {
+		return SoLuong;
+	}
+
+	public void setSoLuong(int soLuong) {
+		SoLuong = soLuong;
+	}
+
+	public int getMaHoaDon() {
+		return MaHoaDon;
+	}
+
+	public void setMaHoaDon(int maHoaDon) {
+		MaHoaDon = maHoaDon;
+	}
+	
+	public ArrayList<DsOrder> GetDsOrder(int ma){
+        ArrayList<DsOrder> arrDs = null;
+        String sql;
+            sql = "Select ct.MaMon, TenMon, DVT, SoLuong, Gia, MaHoaDon From chitiethd AS ct INNER JOIN thucdon AS td ON ct.MaMon = td.MaMon Where ct.MaHoaDon = '"+ma+"'";
+        try{
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            arrDs = new ArrayList<DsOrder>();
+            while(rs.next()){
+                DsOrder order = new DsOrder(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getInt(5), rs.getInt(6));
+                arrDs.add(order);
+            }
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Không lấy được danh sách Order !");
+        }
+        return arrDs;        
+    }   
+	
+    public ChiTietHD GetDsChiTiet(String ma, int maban){
+        ChiTietHD arrDs = null;
+        String sql;
+
+            sql = "Select SoLuong, Gia, MaChiTietHD From chitiethd AS ct INNER JOIN hoadon AS hd ON ct.MaHoaDon = hd.MaHoaDon Where MaMon = '"+ma+"' AND MaBan = '"+maban+"' AND hd.TrangThai = 0";
+        try{
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                arrDs = new ChiTietHD();
+                arrDs.SetSoLuong(rs.getInt(1));
+                arrDs.SetGia(rs.getInt(2));
+                arrDs.SetMaChiTietHD(rs.getInt(3));
+            }
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Không lấy được danh sách Order !");
+        }
+        return arrDs;        
+    } 
+
+}

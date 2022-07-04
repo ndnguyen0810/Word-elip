@@ -3,58 +3,82 @@ package View.Main;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
+
+import Models.MyConnect;
+import Models.TaiKhoan;
+
 import java.awt.Window.Type;
 import java.awt.Dialog.ModalExclusionType;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 import java.awt.event.ActionEvent;
 
 public class JF_Login extends JFrame {
-	private JTextField textField, passwordField;
+	private JTextField txtUser, txtPass;
 	private JButton btnDangNhap, btnThoat;
+
+	public TaiKhoan tk = new TaiKhoan();
+	public static String name;
+	public Connection con = MyConnect.getConnection();
 
 	public static void main(String[] args) {
 		new JF_Login().showW();
 	}
 
-	private void showW() {
-		
+	public void showW() {
 		this.setTitle("Đăng nhập ứng dụng");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(350, 180);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setVisible(true);
-		this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+
 	}
 
 	public JF_Login() {
-		setResizable(false);
-		addcontrols();
-		addevents();
 		this.setType(Type.UTILITY);
 		this.setUndecorated(true);
+		addcontrols();
+		addevents();
+
 	}
 
 	private void addevents() {
 		btnDangNhap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new JF_Main().ShowMain();
-//				setVisible(false);
-//				Run.QLCF();
+
+				String user = txtUser.getText();
+				String pass = txtPass.getText();
+				tk.setUserName(user);
+				tk.setPassWord(pass);
+				boolean check = tk.CheckLogin(tk);
+				if (check) {
+					Run.tk = tk.GetTaiKhoan(user, pass);
+					name= Run.tk.getHoten();
+					Run.runMain();
+					
+					setVisible(false);
+				} else {
+					JOptionPane.showMessageDialog(null, "Tài khoản hoặc mật khẩu không đúng", "Login Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+
 			}
 		});
 
 		btnThoat.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
+
 		});
 
 	}
 
 	private void addcontrols() {
 		getContentPane().setFont(new Font("Arial", Font.PLAIN, 15));
-		setBounds(100, 100, 359, 220);
+		setBounds(100, 100, 359, 207);
 		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
 
 		JPanel pnMain = new JPanel();
@@ -82,15 +106,17 @@ public class JF_Login extends JFrame {
 		JLabel lblTaikhoan = new JLabel("Tài khoản");
 		pnCenter.add(lblTaikhoan);
 
-		textField = new JTextField();
-		pnCenter.add(textField);
-		textField.setColumns(10);
+		txtUser = new JTextField();
+		txtUser.setText("a");
+		pnCenter.add(txtUser);
+		txtUser.setColumns(10);
 
 		JLabel lblmatkhau = new JLabel("Mật khẩu");
 		pnCenter.add(lblmatkhau);
 
-		passwordField = new JPasswordField();
-		pnCenter.add(passwordField);
+		txtPass = new JPasswordField();
+		txtPass.setText("a");
+		pnCenter.add(txtPass);
 
 		JPanel pnBot = new JPanel();
 		pnConMain.add(pnBot);

@@ -1,0 +1,113 @@
+package View.QuanLy;
+
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class JD_QL_Ban_Edit extends JDialog {
+
+	private final JPanel pnMain = new JPanel();
+	JTextField txtTenBan;
+	JLabel lblTitle;
+	JButton btnOK, btnHuy;
+	String them = "";
+	String sua = "";
+
+	public JD_QL_Ban_Edit(Frame parent, boolean modal, String name) {
+		super(parent, modal);
+		setFont(new Font("Arial", Font.PLAIN, 14));
+		lblTitle = new JLabel(name);
+		lblTitle.setFont(new Font("Arial", Font.BOLD, 16));
+		this.setTitle(name);
+		addscontrol();
+		addvents();
+		them = JP_QL_Ban.btnThem.getText().toUpperCase();
+		sua = JP_QL_Ban.btnSua.getText().toUpperCase();
+	}
+
+	private void addvents() {
+		btnHuy.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+
+		btnOK.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (them == "THÊM") {
+					System.err.println("Xxxx");
+				}
+				if (sua == "SỬA") {
+					System.err.println("Xxxxxxxxxxxxxxx);
+				}
+			}
+		});
+
+	}
+
+	public void addscontrol() {
+		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+		setBounds(100, 100, 309, 132);
+		this.setLocationRelativeTo(null);
+		getContentPane().setLayout(new BorderLayout());
+
+		pnMain.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(pnMain, BorderLayout.CENTER);
+		GridBagLayout gbl_pnMain = new GridBagLayout();
+		gbl_pnMain.columnWidths = new int[] { 0, 0, 0, 0, 0, 0 };
+		gbl_pnMain.rowHeights = new int[] { 0, 0, 0 };
+		gbl_pnMain.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_pnMain.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
+		pnMain.setLayout(gbl_pnMain);
+		{
+			GridBagConstraints gbc_lblTitle = new GridBagConstraints();
+			gbc_lblTitle.gridwidth = 2;
+			gbc_lblTitle.insets = new Insets(0, 0, 5, 5);
+			gbc_lblTitle.gridx = 1;
+			gbc_lblTitle.gridy = 0;
+			pnMain.add(lblTitle, gbc_lblTitle);
+		}
+		{
+			JLabel lblNewLabel_1 = new JLabel("Tên bàn");
+			lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 14));
+			GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+			gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
+			gbc_lblNewLabel_1.insets = new Insets(0, 0, 0, 5);
+			gbc_lblNewLabel_1.gridx = 1;
+			gbc_lblNewLabel_1.gridy = 1;
+			pnMain.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		}
+		{
+			txtTenBan = new JTextField();
+			txtTenBan.setFont(new Font("Arial", Font.PLAIN, 14));
+			GridBagConstraints gbc_txtTenBan = new GridBagConstraints();
+			gbc_txtTenBan.insets = new Insets(0, 0, 0, 5);
+			gbc_txtTenBan.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtTenBan.gridx = 2;
+			gbc_txtTenBan.gridy = 1;
+			pnMain.add(txtTenBan, gbc_txtTenBan);
+			txtTenBan.setColumns(10);
+		}
+		{
+			JPanel pnButton = new JPanel();
+			pnButton.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(pnButton, BorderLayout.SOUTH);
+			{
+				btnOK = new JButton("Xác nhận");
+				btnOK.setFont(new Font("Arial", Font.PLAIN, 14));
+				btnOK.setActionCommand("OK");
+				pnButton.add(btnOK);
+				getRootPane().setDefaultButton(btnOK);
+			}
+			{
+				btnHuy = new JButton("Huỷ bỏ");
+				btnHuy.setFont(new Font("Arial", Font.PLAIN, 14));
+				btnHuy.setActionCommand("Cancel");
+				pnButton.add(btnHuy);
+			}
+		}
+	}
+
+}

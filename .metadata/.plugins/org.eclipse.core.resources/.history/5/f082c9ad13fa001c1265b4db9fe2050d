@@ -1,0 +1,6 @@
+package Models;
+
+public class Ban {
+private int maBan;
+private String tenBan, trangThai;
+}

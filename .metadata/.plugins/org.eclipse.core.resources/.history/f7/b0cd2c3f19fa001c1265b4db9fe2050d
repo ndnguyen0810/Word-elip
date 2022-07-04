@@ -1,0 +1,66 @@
+package Models;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import javax.swing.JOptionPane;
+
+public class Ban {
+	private int maBan;
+	private String tenBan, trangThai;
+
+	public Ban(int maBan, String tenBan, String trangThai) {
+		super();
+		this.maBan = maBan;
+		this.tenBan = tenBan;
+		this.trangThai = trangThai;
+	}
+
+	public Ban() {
+		super();
+	}
+
+	public int getMaBan() {
+		return maBan;
+	}
+
+	public void setMaBan(int maBan) {
+		this.maBan = maBan;
+	}
+
+	public String getTenBan() {
+		return tenBan;
+	}
+
+	public void setTenBan(String tenBan) {
+		this.tenBan = tenBan;
+	}
+
+	public String getTrangThai() {
+		return trangThai;
+	}
+
+	public void setTrangThai(String trangThai) {
+		this.trangThai = trangThai;
+	}
+
+	@Override
+	public String toString() {
+		return this.tenBan;
+	}
+	
+	//xu ly 
+	private Connection con;
+	public int UpdateBan(Ban b){
+        int update = 0;
+        String sql = "UPDATE ban SET TenBan = '"+b.GetTenBan()+"', TrangThai = '"+b.GetTrangThai()+"' WHERE MaBan = '"+b.GetMaBan()+"'";
+        try{
+            Statement st = con.createStatement();
+            update = st.executeUpdate(sql);
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Update bàn không thành công !");
+        }
+        return update;
+    }   
+}

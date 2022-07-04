@@ -1,0 +1,130 @@
+package Models;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.Vector;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+
+public class LoaiThucAn {
+	// tạo constructor
+
+	private int maLoai;
+	private String tenLoai;
+
+	public LoaiThucAn(int maLoai, String tenLoai) {
+		super();
+		this.maLoai = maLoai;
+		this.tenLoai = tenLoai;
+	}
+
+	public LoaiThucAn() {
+		super();
+	}
+
+	public int getMaLoai() {
+		return maLoai;
+	}
+
+	public void setMaLoai(int maLoai) {
+		this.maLoai = maLoai;
+	}
+
+	public String getTenLoai() {
+		return tenLoai;
+	}
+
+	public void setTenLoai(String tenLoai) {
+		this.tenLoai = tenLoai;
+	}
+
+	@Override
+	public String toString() {
+		return this.tenLoai;
+	}
+//xu ly dư liệu
+
+	private Connection con = MyConnect.getConnection();
+
+	public void Insert(LoaiThucAn l) {
+		try {
+			String sql = String.format("insert into loaita(tenloai) values ('%s')", l.getTenLoai());
+			PreparedStatement s = con.prepareStatement(sql);
+			if (s.executeUpdate() > 0) {
+				JOptionPane.showInternalMessageDialog(null, "Thêm thành công");
+			} else {
+				JOptionPane.showInternalMessageDialog(null, "Thêm thất bại");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public void Update(LoaiThucAn l) {
+		try {
+			String sql = String.format("update loaita set tenta='%s' where maloai=%d", l.getTenLoai(), l.getMaLoai());
+			PreparedStatement s = con.prepareStatement(sql);
+			if (s.executeUpdate() > 0) {
+				JOptionPane.showInternalMessageDialog(null, "Cập nhật thành công");
+			} else {
+				JOptionPane.showInternalMessageDialog(null, "Cập nhật thất bại");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public void Delete(LoaiThucAn l) {
+		try {
+			String sql = String.format("delete form loaita where maloai=%d", l.getMaLoai());
+			PreparedStatement s = con.prepareStatement(sql);
+			if (s.executeUpdate() > 0) {
+				JOptionPane.showInternalMessageDialog(null, "Xoá thành công");
+			} else {
+				JOptionPane.showInternalMessageDialog(null, "Xoá thất bại");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public ArrayList<LoaiThucAn> ShowTable(String key) {
+		ArrayList<LoaiThucAn> arrloai = null;
+		String sql;
+		if (Integer.parseInt(key) == 0) {
+			sql = "select * from loaita";
+		} else {
+			sql = String.format("select * from loaita where maloai= %d or tenloai like '%s'", Integer.parseInt(key),
+					'%' + key + '%');
+		}
+		try {
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			arrloai = new ArrayList<LoaiThucAn>();
+			while (rs.next()) {
+				LoaiThucAn lt = new LoaiThucAn(rs.getInt(1), rs.getString(2));
+				arrloai.add(lt);
+			}
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi !");
+		}
+		return arrloai;
+	}
+
+	public void ShowLoai_InCBB(JComboBox<LoaiThucAn> cbb) {
+		try {
+			DefaultComboBoxModel<LoaiThucAn> model = new DefaultComboBoxModel<>();
+			String sql = "select * from loaita";
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				model.addElement(new LoaiThucAn(rs.getInt("MaLoai"), rs.getString("TenLoai")));
+			}
+			cbb.setModel(model);
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+}

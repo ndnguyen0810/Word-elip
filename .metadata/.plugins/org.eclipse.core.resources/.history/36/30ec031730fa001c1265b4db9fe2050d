@@ -1,0 +1,78 @@
+package View.QuanLy;
+
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.*;
+
+
+public class JD_QL_Ban_Sua extends JDialog {
+
+	private final JPanel pnMain = new JPanel();
+	private JTextField txtTenBan;
+
+	public JD_QL_Ban_Sua(Frame parent, boolean modal) {
+		super(parent, modal);
+		addcontrols();
+	}
+
+	public void addcontrols() {
+		setLocationRelativeTo(null);
+		setUndecorated(true);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 279, 120);
+		getContentPane().setLayout(new BorderLayout());
+		pnMain.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(pnMain, BorderLayout.CENTER);
+		GridBagLayout gbl_pnMain = new GridBagLayout();
+		gbl_pnMain.columnWidths = new int[] { 0, 0, 0, 0, 0, 0 };
+		gbl_pnMain.rowHeights = new int[] { 0, 0, 0, 0 };
+		gbl_pnMain.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_pnMain.rowWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		pnMain.setLayout(gbl_pnMain);
+		{
+			JLabel lblThemBan = new JLabel("Thêm bàn mới");
+			GridBagConstraints gbc_lblThemBan = new GridBagConstraints();
+			gbc_lblThemBan.gridwidth = 2;
+			gbc_lblThemBan.insets = new Insets(0, 0, 5, 5);
+			gbc_lblThemBan.gridx = 1;
+			gbc_lblThemBan.gridy = 0;
+			pnMain.add(lblThemBan, gbc_lblThemBan);
+		}
+		{
+			JLabel lblNewLabel_1 = new JLabel("Tên bàn");
+			GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+			gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
+			gbc_lblNewLabel_1.insets = new Insets(0, 0, 0, 5);
+			gbc_lblNewLabel_1.gridx = 1;
+			gbc_lblNewLabel_1.gridy = 2;
+			pnMain.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		}
+		{
+			txtTenBan = new JTextField();
+			GridBagConstraints gbc_txtTenBan = new GridBagConstraints();
+			gbc_txtTenBan.insets = new Insets(0, 0, 0, 5);
+			gbc_txtTenBan.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtTenBan.gridx = 2;
+			gbc_txtTenBan.gridy = 2;
+			pnMain.add(txtTenBan, gbc_txtTenBan);
+			txtTenBan.setColumns(10);
+		}
+		{
+			JPanel buttonPane = new JPanel();
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			{
+				okButton = new JButton("Xác nhận");
+				okButton.setActionCommand("OK");
+				buttonPane.add(okButton);
+				getRootPane().setDefaultButton(okButton);
+			}
+			{
+				JButton cancelButton = new JButton("Huỷ bỏ");
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
+			}
+		}
+	}
+
+}

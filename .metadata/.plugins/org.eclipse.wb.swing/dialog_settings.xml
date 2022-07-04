@@ -7,8 +7,8 @@
 		<item key="height" value="635"/>
 	</section>
 	<section name="org.eclipse.wb.internal.swing.model.property.editor.icon.IconPropertyEditor$ImageDialog">
-		<item key="x" value="386"/>
-		<item key="y" value="153"/>
+		<item key="x" value="411"/>
+		<item key="y" value="278"/>
 		<item key="width" value="1147"/>
 		<item key="height" value="714"/>
 	</section>
@@ -23,5 +23,23 @@
 		<item key="y" value="165"/>
 		<item key="width" value="1147"/>
 		<item key="height" value="689"/>
+	</section>
+	<section name="org.eclipse.wb.internal.swing.model.layout.gbl.ui.RowEditDialog">
+		<item key="x" value="1135"/>
+		<item key="y" value="181"/>
+		<item key="width" value="462"/>
+		<item key="height" value="546"/>
+	</section>
+	<section name="org.eclipse.wb.internal.swing.model.layout.gbl.ui.ColumnEditDialog">
+		<item key="x" value="729"/>
+		<item key="y" value="274"/>
+		<item key="width" value="462"/>
+		<item key="height" value="471"/>
+	</section>
+	<section name="org.eclipse.wb.internal.swing.model.property.editor.models.combo.ComboBoxModelDialog">
+		<item key="x" value="653"/>
+		<item key="y" value="280"/>
+		<item key="width" value="613"/>
+		<item key="height" value="460"/>
 	</section>
 </section>

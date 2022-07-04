@@ -1,0 +1,49 @@
+package Models;
+
+public class DsOrder {
+	private String TenMon, MaMon, DVT;
+	public DsOrder() {
+		super();
+	}
+	private int Gia, SoLuong, MaHoaDon;
+	
+	public String getTenMon() {
+		return TenMon;
+	}
+	public void setTenMon(String tenMon) {
+		TenMon = tenMon;
+	}
+	public String getMaMon() {
+		return MaMon;
+	}
+	public void setMaMon(String maMon) {
+		MaMon = maMon;
+	}
+	public String getDVT() {
+		return DVT;
+	}
+	public void setDVT(String dVT) {
+		DVT = dVT;
+	}
+	public int getGia() {
+		return Gia;
+	}
+	public void setGia(int gia) {
+		Gia = gia;
+	}
+	public int getSoLuong() {
+		return SoLuong;
+	}
+	public void setSoLuong(int soLuong) {
+		SoLuong = soLuong;
+	}
+	public int getMaHoaDon() {
+		return MaHoaDon;
+	}
+	public void setMaHoaDon(int maHoaDon) {
+		MaHoaDon = maHoaDon;
+	}
+	
+
+
+}

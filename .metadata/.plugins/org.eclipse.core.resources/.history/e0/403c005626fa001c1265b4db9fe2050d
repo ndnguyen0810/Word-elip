@@ -1,0 +1,100 @@
+package Models;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
+
+public class CTHD {
+	private int maHD, maTA, gia, soLuong;
+
+	public CTHD(int maHD, int maTA, int gia, int soLuong) {
+		super();
+		this.maHD = maHD;
+		this.maTA = maTA;
+		this.gia = gia;
+		this.soLuong = soLuong;
+	}
+
+	public CTHD() {
+		super();
+	}
+
+	public int getMaHD() {
+		return maHD;
+	}
+
+	public void setMaHD(int maHD) {
+		this.maHD = maHD;
+	}
+
+	public int getMaTA() {
+		return maTA;
+	}
+
+	public void setMaTA(int maTA) {
+		this.maTA = maTA;
+	}
+
+	public int getGia() {
+		return gia;
+	}
+
+	public void setGia(int gia) {
+		this.gia = gia;
+	}
+
+	public int getSoLuong() {
+		return soLuong;
+	}
+
+	public void setSoLuong(int soLuong) {
+		this.soLuong = soLuong;
+	}
+	/////
+	
+	private Connection con;
+
+	public void Insert(CTHD ct) {
+		try {
+			String sql = String.format("insert into ban(tenban,trangthai)values ('%s', '%s')", ct.getTenBan(), ct.getTrangThai());
+			PreparedStatement s = con.prepareStatement(sql);
+			if (s.executeUpdate() > 0) {
+				JOptionPane.showConfirmDialog(null, "Thêm thành công");
+			} else {
+				JOptionPane.showConfirmDialog(null, "Thêm thất bại");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	public void UpdateBan(CTHD ct) {
+		try {
+			String sql = String.format("update ban set tenban='%s',trangthai='%s' where maban=%d)", ct.getTenBan(), ct.getTrangThai(),ct.getMaBan());
+			PreparedStatement s = con.prepareStatement(sql);
+			if (s.executeUpdate() > 0) {
+				JOptionPane.showConfirmDialog(null, "Cập nhật bàn thành công");
+			} else {
+				JOptionPane.showConfirmDialog(null, "Cập nhật bàn thất bại");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	public void UpdateTrangThaiBan(CTHD ct) {
+		try {
+			String sql = String.format("update ban set trangthai='%s' where maban=%d)", ct.getTrangThai(),ct.getMaBan());
+			PreparedStatement s = con.prepareStatement(sql);
+			if (s.executeUpdate() > 0) {
+				JOptionPane.showConfirmDialog(null, "Cập nhật trạng thái bàn thành công");
+			} else {
+				JOptionPane.showConfirmDialog(null, "Cập nhật trạng thái bàn thất bại");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+}

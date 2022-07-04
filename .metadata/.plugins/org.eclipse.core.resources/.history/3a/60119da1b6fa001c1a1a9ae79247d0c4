@@ -1,0 +1,108 @@
+package View.QuanLy;
+
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.*;
+
+import java.awt.event.*;
+
+public class JD_QL_NhomMon_Edit extends JDialog {
+
+	private final JPanel pnMain = new JPanel();
+	private JTextField txtTenLoai;
+	JLabel lblTitle;
+	JButton btnHuy, btnXacNhan;
+
+	public JD_QL_NhomMon_Edit(Frame parent, boolean modal, String name) {
+		super(parent, modal);
+		addcontrols();
+		addevents();
+		lblTitle.setFont(new Font("Arial", Font.BOLD, 16));
+		lblTitle = new JLabel(name);
+		this.setTitle(name);
+		
+	}
+
+	private void addevents() {
+		btnXacNhan.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnHuy.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+
+	}
+
+	public void addcontrols() {
+		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+		setBounds(100, 100, 828, 640);
+		setLocationRelativeTo(null);
+		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+		((JComponent) getContentPane()).setBorder(BorderFactory.createLineBorder(Color.RED));
+		pnMain.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(pnMain);
+		GridBagLayout gbl_pnMain = new GridBagLayout();
+		gbl_pnMain.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_pnMain.rowHeights = new int[] { 42, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_pnMain.columnWeights = new double[] { 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_pnMain.rowWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		pnMain.setLayout(gbl_pnMain);
+		{
+//			lblTitle.setFont(new Font("Arial", Font.BOLD, 15));
+			GridBagConstraints gbc_lblTitle = new GridBagConstraints();
+			gbc_lblTitle.gridwidth = 6;
+			gbc_lblTitle.insets = new Insets(0, 0, 5, 5);
+			gbc_lblTitle.gridx = 1;
+			gbc_lblTitle.gridy = 0;
+			pnMain.add(lblTitle, gbc_lblTitle);
+		}
+		{
+			JLabel lblTenLoai = new JLabel("Tên loại");
+			GridBagConstraints gbc_lblTenLoai = new GridBagConstraints();
+			gbc_lblTenLoai.insets = new Insets(0, 0, 5, 5);
+			gbc_lblTenLoai.gridx = 1;
+			gbc_lblTenLoai.gridy = 1;
+			pnMain.add(lblTenLoai, gbc_lblTenLoai);
+		}
+		{
+			txtTenLoai = new JTextField();
+			GridBagConstraints gbc_txtTenLoai = new GridBagConstraints();
+			gbc_txtTenLoai.gridwidth = 2;
+			gbc_txtTenLoai.insets = new Insets(0, 0, 5, 5);
+			gbc_txtTenLoai.fill = GridBagConstraints.HORIZONTAL;
+			gbc_txtTenLoai.gridx = 3;
+			gbc_txtTenLoai.gridy = 1;
+			pnMain.add(txtTenLoai, gbc_txtTenLoai);
+			txtTenLoai.setColumns(10);
+		}
+		{
+			JColorChooser pnColor = new JColorChooser();
+			GridBagConstraints gbc_pnColor = new GridBagConstraints();
+			gbc_pnColor.gridwidth = 5;
+			gbc_pnColor.insets = new Insets(0, 0, 5, 5);
+			gbc_pnColor.gridx = 1;
+			gbc_pnColor.gridy = 4;
+			pnMain.add(pnColor, gbc_pnColor);
+		}
+		{
+			JPanel buttonPane = new JPanel();
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane);
+			{
+				btnXacNhan = new JButton("Xác nhận");
+				btnXacNhan.setActionCommand("OK");
+				buttonPane.add(btnXacNhan);
+				getRootPane().setDefaultButton(btnXacNhan);
+			}
+			{
+				btnHuy = new JButton("Huỷ bỏ");
+				btnHuy.setActionCommand("Cancel");
+				buttonPane.add(btnHuy);
+			}
+		}
+	}
+
+}

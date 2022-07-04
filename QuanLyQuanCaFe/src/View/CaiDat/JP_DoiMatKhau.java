@@ -23,6 +23,12 @@ public class JP_DoiMatKhau extends JPanel {
 	 * Create the panel.
 	 */
 	public JP_DoiMatKhau() {
+		addcontrols();
+		
+	}
+	
+	
+	public void addcontrols() {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		
 		JPanel pnMain = new JPanel();

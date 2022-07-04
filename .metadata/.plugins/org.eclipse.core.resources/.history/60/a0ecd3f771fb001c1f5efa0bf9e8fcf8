@@ -1,0 +1,144 @@
+package Models;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import javax.swing.JOptionPane;
+
+public class CTHD {
+	private int maHD, maTA, gia, soLuong;
+
+	public CTHD(int maHD, int maTA, int gia, int soLuong) {
+		super();
+		this.maHD = maHD;
+		this.maTA = maTA;
+		this.gia = gia;
+		this.soLuong = soLuong;
+	}
+
+	public CTHD() {
+		super();
+	}
+
+	public int getMaHD() {
+		return maHD;
+	}
+
+	public void setMaHD(int maHD) {
+		this.maHD = maHD;
+	}
+
+	public int getMaTA() {
+		return maTA;
+	}
+
+	public void setMaTA(int maTA) {
+		this.maTA = maTA;
+	}
+
+	public int getGia() {
+		return gia;
+	}
+
+	public void setGia(int gia) {
+		this.gia = gia;
+	}
+
+	public int getSoLuong() {
+		return soLuong;
+	}
+
+	public void setSoLuong(int soLuong) {
+		this.soLuong = soLuong;
+	}
+	/////
+
+	private Connection con = MyConnect.con;
+
+	public void Insert(CTHD ct) {
+		try {
+			String sql = String.format("insert into cthd (mahd, mata, gia, soluong) values (%d, %d, %d, %d)",
+					ct.getMaHD(), ct.getMaTA(), ct.getGia(), ct.getSoLuong());
+			PreparedStatement s = con.prepareStatement(sql);
+			System.err.println(sql);
+			if (s.executeUpdate() > 0) {
+								JOptionPane.showMessageDialog(null, "Thêm thành công");
+			} else {
+				JOptionPane.showMessageDialog(null, "Thêm thất bại");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+
+
+	public int DeleteMon(String mamon, int mahd, int maban) {
+		int check = 0;
+		try {
+			String sql;
+			sql = "Delete From cthd Where MaMon = '" + mamon + "' AND MaHoaDon = '" + mahd + "'";
+			Statement st = con.createStatement();
+			st.executeUpdate(sql);
+			check = 1;
+			if (CheckDsMon(mahd, maban) == 0) {
+				check = 2;
+			}
+		} catch (SQLException ex) {
+
+		}
+		return check;
+	}
+
+	public int CheckDsMon(int mahd, int maban) {
+		String sql;
+		int dem = 0;
+		sql = "Select * From hoadon AS hd INNER JOIN cthd AS ct ON ct.mahd = hd.mahd Where MaBan = '" + maban
+				+ "' AND ct.mahd = '" + mahd;
+		try {
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				dem++;
+			}
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Không lấy được danh sách hóa đơn !");
+		}
+		return dem;
+	}
+
+	public CTHD GetDsChiTiet(int ma, int maban) {
+		CTHD arrDs = null;
+		String sql;
+
+		sql = "Select SoLuong, Gia From cthd AS ct INNER JOIN hoadon AS hd ON ct.mahd = hd.mahd Where ct.MaMon = " + ma
+				+ " AND MaBan = " + maban;
+		try {
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			while (rs.next()) {
+				arrDs = new CTHD();
+				arrDs.setSoLuong(rs.getInt(1));
+				arrDs.setGia(rs.getInt(2));
+			}
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Không lấy được danh sách Order !");
+		}
+		return arrDs;
+	}
+
+	public int UpdateChiTiet(CTHD ct){
+        int update = 0;
+        String sql = "UPDATE chitiethd SET SoLuong = "+ct.getSoLuong()+", Gia = "+ct.getGia()+" WHERE mahd = "+ct.getMaHD();
+        try{
+            Statement st = con.createStatement();
+            update = st.executeUpdate(sql);
+        }catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, "Update chi tiết không thành công !");
+        }
+        return update;        
+    }
+}

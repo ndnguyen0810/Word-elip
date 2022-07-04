@@ -1,0 +1,12 @@
+package Models;
+
+public class Ban {
+	private int maBan;
+	private String tenBan, trangThai;
+	public Ban(int maBan, String tenBan, String trangThai) {
+		super();
+		this.maBan = maBan;
+		this.tenBan = tenBan;
+		this.trangThai = trangThai;
+	}
+}

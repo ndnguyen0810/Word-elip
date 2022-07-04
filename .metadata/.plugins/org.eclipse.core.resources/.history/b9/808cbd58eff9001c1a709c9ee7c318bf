@@ -1,0 +1,24 @@
+package View.Main;
+
+import javax.swing.*;
+import java.awt.BorderLayout;
+import javax.swing.GroupLayout.Alignment;
+import java.awt.GridLayout;
+import java.awt.FlowLayout;
+
+public class JP_Home extends JPanel {
+
+	public JP_Home() {
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		
+		JPanel panel = new JPanel();
+		add(panel);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon(JP_Home.class.getResource("/Image/homeI.jpg")));
+		panel.add(lblNewLabel);
+
+	}
+
+}

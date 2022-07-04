@@ -1,0 +1,127 @@
+package View.Main;
+
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.*;
+
+import Models.MyConnect;
+import Models.TaiKhoan;
+
+import java.awt.Window.Type;
+import java.awt.Dialog.ModalExclusionType;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.awt.event.ActionEvent;
+
+public class JF_Login extends JFrame {
+	private JTextField txtUser, txtPass;
+	private JButton btnDangNhap, btnThoat;
+	public TaiKhoan tk = new TaiKhoan();
+	public Connection con = MyConnect.getConnection();
+
+	public static void main(String[] args) {
+		new JF_Login().showW();
+	}
+
+	public void showW() {
+		this.setTitle("Đăng nhập ứng dụng");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setSize(350, 180);
+		this.setLocationRelativeTo(null);
+		this.setResizable(false);
+		this.setVisible(true);
+	}
+
+	public JF_Login() {
+		setType(Type.UTILITY);
+		setUndecorated(true);
+		addcontrols();
+		addevents();
+
+	}
+
+	private void addevents() {
+		btnDangNhap.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				String user = txtUser.getText();
+				String pass = txtPass.getText();
+				tk.setUserName(user);
+				tk.setPassWord(pass);
+				boolean check = tk.CheckLogin(tk);
+				if (check) {
+					Run.tk = tk.GetTaiKhoan(user, pass);
+					Run.runMain();
+					setVisible(false);
+
+				} else {
+					JOptionPane.showMessageDialog(null, "Tài khoản hoặc mật khẩu không đúng", "Login Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+
+			}
+		});
+
+		btnThoat.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+
+		});
+
+	}
+
+	private void addcontrols() {
+		getContentPane().setFont(new Font("Arial", Font.PLAIN, 15));
+		setBounds(100, 100, 359, 207);
+		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
+
+		JPanel pnMain = new JPanel();
+		getContentPane().add(pnMain);
+		pnMain.setLayout(new BoxLayout(pnMain, BoxLayout.LINE_AXIS));
+
+		JPanel pnConMain = new JPanel();
+		pnConMain.setBorder(new EmptyBorder(20, 20, 20, 20));
+		pnMain.add(pnConMain);
+		pnConMain.setLayout(new BoxLayout(pnConMain, BoxLayout.Y_AXIS));
+
+		JPanel pnTop = new JPanel();
+		pnConMain.add(pnTop);
+		pnTop.setLayout(new BoxLayout(pnTop, BoxLayout.X_AXIS));
+
+		JLabel lblDangNhap = new JLabel("ĐĂNG NHẬP");
+		lblDangNhap.setFont(new Font("Arial", Font.PLAIN, 30));
+		pnTop.add(lblDangNhap);
+
+		JPanel pnCenter = new JPanel();
+		pnCenter.setBorder(new EmptyBorder(0, 0, 20, 0));
+		pnConMain.add(pnCenter);
+		pnCenter.setLayout(new GridLayout(2, 2, 2, 2));
+
+		JLabel lblTaikhoan = new JLabel("Tài khoản");
+		pnCenter.add(lblTaikhoan);
+
+		txtUser = new JTextField();
+		pnCenter.add(txtUser);
+		txtUser.setColumns(10);
+
+		JLabel lblmatkhau = new JLabel("Mật khẩu");
+		pnCenter.add(lblmatkhau);
+
+		txtPass = new JPasswordField();
+		pnCenter.add(txtPass);
+
+		JPanel pnBot = new JPanel();
+		pnConMain.add(pnBot);
+		pnBot.setLayout(new GridLayout(0, 2, 30, 0));
+
+		btnDangNhap = new JButton("Đăng Nhập");
+		pnBot.add(btnDangNhap);
+
+		btnThoat = new JButton("Thoát");
+		pnBot.add(btnThoat);
+
+	}
+
+}

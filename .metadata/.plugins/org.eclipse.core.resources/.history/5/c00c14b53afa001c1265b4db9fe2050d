@@ -1,0 +1,64 @@
+package View.QuanLy;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class JD_QL_TaiKhoan_Edit extends JDialog {
+
+	private final JPanel pnMain = new JPanel();
+	JButton btnXacNhan, btnHuy;
+
+	public JD_QL_TaiKhoan_Edit() {
+		super();
+		addcontrols();
+		addevents();
+	}
+
+	private void addevents() {
+		btnXacNhan.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
+
+		btnHuy.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
+
+	}
+
+	public void addcontrols() {
+		setBounds(100, 100, 450, 300);
+		setLocationRelativeTo(null);
+		getContentPane().setLayout(new BorderLayout());
+		pnMain.setLayout(new FlowLayout());
+		pnMain.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(pnMain, BorderLayout.CENTER);
+		{
+			JPanel pnButton = new JPanel();
+			pnButton.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(pnButton, BorderLayout.SOUTH);
+			{
+				btnXacNhan = new JButton("Xác nhận");
+				btnXacNhan.setActionCommand("OK");
+				pnButton.add(btnXacNhan);
+				getRootPane().setDefaultButton(btnXacNhan);
+			}
+			{
+				btnHuy = new JButton("Huỷ");
+				btnHuy.setActionCommand("Cancel");
+				pnButton.add(btnHuy);
+			}
+		}
+	}
+
+}

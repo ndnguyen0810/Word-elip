@@ -1,0 +1,53 @@
+package View.BanHang;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.BoxLayout;
+import java.awt.GridBagLayout;
+
+public class JD_DH_GiamGia_Edit extends JDialog {
+
+	private final JPanel pnMain = new JPanel();
+
+	public JD_DH_GiamGia_Edit(JFrame parent,String name) {
+		super(parent);
+		addcontrols();
+		this.setTitle(name);
+	}
+
+	public void addcontrols() {
+		setBounds(100, 100, 450, 300);
+		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+		pnMain.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(pnMain);
+		GridBagLayout gbl_pnMain = new GridBagLayout();
+		gbl_pnMain.columnWidths = new int[]{0};
+		gbl_pnMain.rowHeights = new int[]{0};
+		gbl_pnMain.columnWeights = new double[]{Double.MIN_VALUE};
+		gbl_pnMain.rowWeights = new double[]{Double.MIN_VALUE};
+		pnMain.setLayout(gbl_pnMain);
+		{
+			JPanel pnButton = new JPanel();
+			pnButton.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(pnButton);
+			{
+				JButton okButton = new JButton("OK");
+				okButton.setActionCommand("OK");
+				pnButton.add(okButton);
+				getRootPane().setDefaultButton(okButton);
+			}
+			{
+				JButton cancelButton = new JButton("Cancel");
+				cancelButton.setActionCommand("Cancel");
+				pnButton.add(cancelButton);
+			}
+		}
+	}
+
+}

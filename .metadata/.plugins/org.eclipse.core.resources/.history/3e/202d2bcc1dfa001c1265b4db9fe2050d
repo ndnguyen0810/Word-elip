@@ -1,0 +1,44 @@
+package Models;
+
+import java.sql.Date;
+
+public class HoaDon {
+	private int maDH, maBan, tongtien;
+	private Date thoiGian;
+	public HoaDon(int maDH, int maBan, int tongtien, Date thoiGian) {
+		super();
+		this.maDH = maDH;
+		this.maBan = maBan;
+		this.tongtien = tongtien;
+		this.thoiGian = thoiGian;
+	}
+	public HoaDon() {
+		super();
+	}
+	public int getMaDH() {
+		return maDH;
+	}
+	public void setMaDH(int maDH) {
+		this.maDH = maDH;
+	}
+	public int getMaBan() {
+		return maBan;
+	}
+	public void setMaBan(int maBan) {
+		this.maBan = maBan;
+	}
+	public int getTongtien() {
+		return tongtien;
+	}
+	public void setTongtien(int tongtien) {
+		this.tongtien = tongtien;
+	}
+	public Date getThoiGian() {
+		return thoiGian;
+	}
+	public void setThoiGian(Date thoiGian) {
+		this.thoiGian = thoiGian;
+	}
+	
+	
+}

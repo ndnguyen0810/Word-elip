@@ -1,0 +1,17 @@
+package View.Main;
+
+import javax.swing.*;
+import java.awt.BorderLayout;
+
+public class JP_Home extends JPanel {
+
+	public JP_Home() {
+		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon(JP_Home.class.getResource("/Image/homeI.jpg")));
+		add(lblNewLabel);
+
+	}
+
+}

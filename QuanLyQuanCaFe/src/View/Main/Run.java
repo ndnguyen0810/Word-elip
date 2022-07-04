@@ -1,21 +1,27 @@
 package View.Main;
 
+import Models.*;
 
 public class Run {
 	public static JF_Main main;
 	public static JF_Login lg;
+	public static TaiKhoan tk;
 
 	public static void main(String[] args) {
-		lg();
+		runLogin();
 
 	}
-	public static void QLCF(){
+
+	public static void runMain() {
 		main = new JF_Main();
-        main.setVisible(true);       
-    }  
-    public static void lg(){
-        lg = new JF_Login();
-        lg.setVisible(true);       
-    }
+		main.ShowMain();
+		main.setVisible(true);
+	}
+
+	public static void runLogin() {
+		lg = new JF_Login();
+		lg.showW();
+		lg.setVisible(true);
+	}
 
 }

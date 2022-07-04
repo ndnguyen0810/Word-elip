@@ -1,0 +1,22 @@
+package View.Main;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class JP_Home extends JPanel {
+
+	public JP_Home() {
+		setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+
+		JPanel panel = new JPanel();
+		add(panel);
+		panel.setLayout(new GridLayout(1, 1, 0, 0));
+
+		JLabel lblNewLabel = new JLabel();
+		lblNewLabel.setIcon(new ImageIcon(JP_Home.class.getResource("/Image/homeI.jpg")));
+
+		panel.add(lblNewLabel);
+
+	}
+
+}

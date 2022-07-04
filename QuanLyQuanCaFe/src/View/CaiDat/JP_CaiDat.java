@@ -11,11 +11,16 @@ import java.awt.event.ActionEvent;
 
 public class JP_CaiDat extends JPanel {
 	private JButton btnThongTin, btnDoiMatKhau;
-	private JPanel pnCenter;
+	private JPanel pnAdd;
 
 	public JP_CaiDat() {
 		addcontrolls();
 		addevents();
+		JP_DoiMatKhau j= new JP_DoiMatKhau();
+		
+		pnAdd.removeAll();
+		pnAdd.add(j);
+		pnAdd.updateUI();
 	}
 
 	private void addcontrolls() {
@@ -40,8 +45,8 @@ public class JP_CaiDat extends JPanel {
 		btnThongTin = new JButton("Thông tin");
 		pnButton.add(btnThongTin);
 
-		pnCenter = new JPanel();
-		pnMain.add(pnCenter, BorderLayout.CENTER);
+		pnAdd = new JPanel();
+		pnMain.add(pnAdd, BorderLayout.CENTER);
 
 	}
 
@@ -49,18 +54,18 @@ public class JP_CaiDat extends JPanel {
 		btnDoiMatKhau.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JP_DoiMatKhau jdoimk = new JP_DoiMatKhau();
-				pnCenter.removeAll();
-				pnCenter.add(jdoimk);
-				pnCenter.updateUI();
+				pnAdd.removeAll();
+				pnAdd.add(jdoimk);
+				pnAdd.updateUI();
 			}
 		});
 
 		btnThongTin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JP_ThongTin jTT = new JP_ThongTin();
-				pnCenter.removeAll();
-				pnCenter.add(jTT);
-				pnCenter.updateUI();
+				pnAdd.removeAll();
+				pnAdd.add(jTT);
+				pnAdd.updateUI();
 			}
 		});
 

@@ -1,0 +1,99 @@
+package Models;
+
+import java.sql.*;
+
+
+import javax.swing.JOptionPane;
+
+public class LoaiThucAn {
+	// tạo constructor
+	private int maLoai;
+	private String tenLoai, dVT;
+
+	public LoaiThucAn(int maLoai, String tenLoai, String dVT) {
+		super();
+		this.maLoai = maLoai;
+		this.tenLoai = tenLoai;
+		this.dVT = dVT;
+	}
+
+	public LoaiThucAn() {
+		super();
+	}
+
+	public int getMaLoai() {
+		return maLoai;
+	}
+
+	public void setMaLoai(int maLoai) {
+		this.maLoai = maLoai;
+	}
+
+	public String getTenLoai() {
+		return tenLoai;
+	}
+
+	public void setTenLoai(String tenLoai) {
+		this.tenLoai = tenLoai;
+	}
+
+	public String getdVT() {
+		return dVT;
+	}
+
+	public void setdVT(String dVT) {
+		this.dVT = dVT;
+	}
+
+	@Override
+	public String toString() {
+		return this.tenLoai;
+	}
+//xu ly dư liệu
+	
+	private Connection con;
+
+	public void Insert(LoaiThucAn l) {
+		try {
+			String sql = String.format("insert into thucan(tenta,gia,dvt,maloai)values ('%s',%d ,'%s',%d )",
+					ta.getTenTA(), ta.getGia(), ta.getdVT(), ta.getMaLoai());
+			PreparedStatement s = con.prepareStatement(sql);
+			if (s.executeUpdate() > 0) {
+				JOptionPane.showConfirmDialog(null, "Thêm thành công");
+			} else {
+				JOptionPane.showConfirmDialog(null, "Thêm thất bại");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public void Update(LoaiThucAn l) {
+		try {
+			String sql = String.format("update thucan set tenta='%s', gia=%d, dvt='%s', maloai=%d where mata=%d",
+					ta.getTenTA(), ta.getGia(), ta.getdVT(), ta.getMaLoai(), ta.getMaTA());
+			PreparedStatement s = con.prepareStatement(sql);
+			if (s.executeUpdate() > 0) {
+				JOptionPane.showConfirmDialog(null, "Cập nhật thành công");
+			} else {
+				JOptionPane.showConfirmDialog(null, "Cập nhật thất bại");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public void Delete(LoaiThucAn l) {
+		try {
+			String sql = String.format("delete form thucan where mata=%d )", ta.getMaTA());
+			PreparedStatement s = con.prepareStatement(sql);
+			if (s.executeUpdate() > 0) {
+				JOptionPane.showConfirmDialog(null, "Xoá thành công");
+			} else {
+				JOptionPane.showConfirmDialog(null, "Xoá thất bại");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+}

@@ -6,6 +6,7 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="D:\Donwloads\qlbh"/>
 			<item value="D:\Program Files\Elip-Wordspace\QL_Cafe"/>
 			<item value="D:\Program Files\Elip-Wordspace\NguyenDinhNguyen"/>
 			<item value="D:\Donwloads\QL_Cafe\QL_Cafe"/>

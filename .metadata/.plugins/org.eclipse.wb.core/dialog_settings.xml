@@ -24,4 +24,28 @@
 		<item key="width" value="958"/>
 		<item key="height" value="670"/>
 	</section>
+	<section name="org.eclipse.wb.internal.core.nls.ui.NlsDialog">
+		<item key="x" value="480"/>
+		<item key="y" value="255"/>
+		<item key="width" value="960"/>
+		<item key="height" value="510"/>
+	</section>
+	<section name="org.eclipse.wb.internal.core.model.util.ExposeComponentSupport$ExposeDialog">
+		<item key="x" value="610"/>
+		<item key="y" value="322"/>
+		<item key="width" value="700"/>
+		<item key="height" value="375"/>
+	</section>
+	<section name="org.eclipse.wb.internal.core.editor.palette.dialogs.CategoryAddDialog">
+		<item key="x" value="610"/>
+		<item key="y" value="264"/>
+		<item key="width" value="700"/>
+		<item key="height" value="492"/>
+	</section>
+	<section name="org.eclipse.wb.internal.core.editor.palette.dialogs.ComponentAddDialog">
+		<item key="x" value="552"/>
+		<item key="y" value="275"/>
+		<item key="width" value="816"/>
+		<item key="height" value="469"/>
+	</section>
 </section>

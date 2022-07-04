@@ -1,0 +1,111 @@
+package View.BanHang;
+
+import javax.swing.*;
+import javax.swing.border.*;
+import Models.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
+
+public class JP_BanHang extends JPanel {
+	private JPanel pnRight,pnAddBtn;
+	private JButton btnTrong, btnPhucVu;
+	ArrayList<Ban> arrBan1;
+	Ban ban = new Ban();
+	ArrayList<Ban> arrBan2;
+	public static JP_BanHang jp_bh;
+
+	public JP_BanHang() {
+		addcontrols();
+		FillBan();
+	}
+
+	private void addevents() {
+
+	}
+
+	public void FillBan() {
+		arrBan1 = ban.ShowBan(0);
+		if (arrBan1 != null) {
+			pnAddBtn.removeAll();
+			JButton[] btn = new JButton[arrBan1.size()];
+			for (int i = 0; i < arrBan1.size(); i++) {
+				btn[i] = new JButton();
+				btn[i].setName(String.valueOf(arrBan1.get(i).getMaBan()));
+				String[] mb = arrBan1.get(i).getTenBan().split(" ");
+				btn[i].setText(mb[1]);
+				// btn[i].setIcon(new
+				// javax.swing.ImageIcon(getClass().getResource("/Interface/Images/ico-Table.png")));
+				Border thickBorder = new LineBorder(Color.WHITE, 8);
+				btn[i].setBorder(thickBorder);
+				btn[i].setBackground(Color.decode("#8080ff"));
+				btn[i].setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+				btn[i].setForeground(new java.awt.Color(51, 51, 51));
+				if (arrBan1.get(i).getTrangThai().equals("Đang phục vụ")) {
+					btn[i].setBackground(Color.decode("#66ff66"));
+				}
+				btn[i].setPreferredSize(new Dimension(80, 60));
+
+                btn[i].addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            JP_GoiMon goimon;
+                            arrBan2 = ban.ShowBan(Integer.parseInt(e.getComponent().getName()));
+                            if(ban != null){                            
+                                goimon = new JpGoiMon(ban.get(0).GetTrangThai(),ban.get(0).GetTenBan(),ban.get(0).GetMaBan());
+                                pnRight.removeAll();
+                                pnRight.add(goimon);
+                                pnRight.updateUI();
+                            }
+                        }                    
+                });
+				pnAddBtn.add(btn[i]);
+				pnAddBtn.updateUI();
+			}
+		}
+
+	}
+
+	public void addcontrols() {
+		setBorder(new EmptyBorder(10, 10, 10, 10));
+		setLayout(new BorderLayout(0, 0));
+
+		JPanel pnLeft = new JPanel();
+		add(pnLeft, BorderLayout.WEST);
+		pnLeft.setLayout(new BoxLayout(pnLeft, BoxLayout.Y_AXIS));
+
+		JPanel pnTop = new JPanel();
+		pnLeft.add(pnTop);
+		pnTop.setLayout(new BorderLayout(0, 0));
+		
+		JScrollPane scrollPane = new JScrollPane();
+		pnTop.add(scrollPane, BorderLayout.NORTH);
+		
+		pnAddBtn = new JPanel();
+		scrollPane.setViewportView(pnAddBtn);
+		pnAddBtn.setLayout(new GridLayout(2, 5, 0, 0));
+
+		JPanel pnbtn = new JPanel();
+		pnLeft.add(pnbtn);
+		pnbtn.setLayout(new GridLayout(2, 2, 5, 5));
+
+		btnTrong = new JButton("           ");
+		btnTrong.setBackground(Color.decode("#3204d9"));
+		pnbtn.add(btnTrong);
+
+		JLabel lblTrong = new JLabel("Bàn trống");
+		pnbtn.add(lblTrong);
+
+		btnPhucVu = new JButton("           ");
+		btnPhucVu.setBackground(Color.decode("#de0d4f"));
+		pnbtn.add(btnPhucVu);
+
+		JLabel lblPV = new JLabel("Bàn đang phục vụ");
+		pnbtn.add(lblPV);
+
+		pnRight = new JPanel();
+		add(pnRight, BorderLayout.CENTER);
+		pnRight.setLayout(new BoxLayout(pnRight, BoxLayout.Y_AXIS));
+	}
+
+}

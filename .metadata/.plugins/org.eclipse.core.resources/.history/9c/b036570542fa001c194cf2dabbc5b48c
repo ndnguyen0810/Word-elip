@@ -1,0 +1,67 @@
+package View.QuanLy;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Frame;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.BoxLayout;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class JD_QL_ThucDonEdit1 extends JDialog {
+
+	private final JPanel contentPanel = new JPanel();
+
+	public JD_QL_ThucDonEdit1(Frame parent, boolean modal, String name) {
+		super(parent, modal);
+		setFont(new Font("Arial", Font.PLAIN, 14));
+		//lblTitle = new JLabel(name);
+		//lblTitle.setFont(new Font("Arial", Font.BOLD, 16));
+		addcontrols();
+		//addvents();
+	}
+
+	public void addcontrols() {
+		setUndecorated(true);
+		setLocationRelativeTo(null);
+		setBounds(100, 100, 450, 300);
+		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel);
+		GridBagLayout gbl_contentPanel = new GridBagLayout();
+		gbl_contentPanel.columnWidths = new int[] { 0 };
+		gbl_contentPanel.rowHeights = new int[] { 0 };
+		gbl_contentPanel.columnWeights = new double[] { Double.MIN_VALUE };
+		gbl_contentPanel.rowWeights = new double[] { Double.MIN_VALUE };
+		contentPanel.setLayout(gbl_contentPanel);
+		{
+			JPanel buttonPane = new JPanel();
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane);
+			{
+				JButton okButton = new JButton("OK");
+				okButton.setActionCommand("OK");
+				buttonPane.add(okButton);
+				getRootPane().setDefaultButton(okButton);
+			}
+			{
+				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
+			}
+		}
+	}
+
+}

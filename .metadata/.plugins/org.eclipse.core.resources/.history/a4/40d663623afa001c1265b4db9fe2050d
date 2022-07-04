@@ -1,0 +1,45 @@
+package View.QuanLy;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+public class JD_QL_TaiKhoan_Edit extends JDialog {
+
+	private final JPanel pnMain = new JPanel();
+	JButton okButton, cancelButton;
+
+	public JD_QL_TaiKhoan_Edit() {
+		super();
+		addcontrols();
+	}
+
+	public void addcontrols() {
+		setBounds(100, 100, 450, 300);
+		getContentPane().setLayout(new BorderLayout());
+		pnMain.setLayout(new FlowLayout());
+		pnMain.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(pnMain, BorderLayout.CENTER);
+		{
+			JPanel pnButton = new JPanel();
+			pnButton.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(pnButton, BorderLayout.SOUTH);
+			{
+				okButton = new JButton("OK");
+				okButton.setActionCommand("OK");
+				pnButton.add(okButton);
+				getRootPane().setDefaultButton(okButton);
+			}
+			{
+				cancelButton = new JButton("Cancel");
+				cancelButton.setActionCommand("Cancel");
+				pnButton.add(cancelButton);
+			}
+		}
+	}
+
+}

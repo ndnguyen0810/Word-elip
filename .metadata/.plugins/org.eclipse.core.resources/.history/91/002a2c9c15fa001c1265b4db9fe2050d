@@ -1,0 +1,5 @@
+package Models;
+
+public class CTHD {
+private int maHD, maTA,gia, soLuong;
+}
