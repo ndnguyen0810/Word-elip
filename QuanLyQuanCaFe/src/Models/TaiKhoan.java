@@ -21,7 +21,6 @@ public class TaiKhoan {
 
 	public TaiKhoan() {
 		super();
-//		MyConnect.getConnection();
 	}
 
 	public int getMaTK() {
@@ -56,7 +55,7 @@ public class TaiKhoan {
 		Hoten = hoten;
 	}
 
-	// xu ly
+	// models
 
 	public void Insert(TaiKhoan tk) {
 		try {
@@ -71,13 +70,26 @@ public class TaiKhoan {
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
+	}
 
+	public void DoiMatKhau(TaiKhoan tk) {
+		try {
+			String sql = String.format("update taikhoan password='%s',hoten='%s' where matk=%d", tk.getPassWord(),
+					tk.getHoten(), tk.getMaTK());
+			PreparedStatement s = con.prepareStatement(sql);
+			if (s.executeUpdate() > 0) {
+				JOptionPane.showInternalMessageDialog(null, "Đổi thông tin thành công");
+			} else {
+				JOptionPane.showInternalMessageDialog(null, "Đổi thông tin thất bại");
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
 	}
 
 	public void Update(TaiKhoan tk) {
 		try {
-
-			String sql = String.format("update taikhoan set username='%s',password='%s',hoten='%s' where matk=%d",
+			String sql = String.format("update taikhoan set username ='%s',password='%s',hoten='%s' where matk=%d",
 					tk.getUserName(), tk.getPassWord(), tk.getHoten(), tk.getMaTK());
 			PreparedStatement s = con.prepareStatement(sql);
 			if (s.executeUpdate() > 0) {
@@ -85,7 +97,6 @@ public class TaiKhoan {
 			} else {
 				JOptionPane.showInternalMessageDialog(null, "Cập nhật tài khoản thất bại");
 			}
-
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
@@ -121,7 +132,6 @@ public class TaiKhoan {
 			JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi đăng nhập !");
 		}
 		return check;
-
 	}
 
 	public TaiKhoan GetTaiKhoan(String name, String pass) {

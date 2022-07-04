@@ -81,7 +81,7 @@ public class DsOrder {
 		String sql;
 
 		sql = String.format(
-				"Select ct.MaMon, TenMon, DVT, SoLuong, Gia, mahd From cthd AS ct INNER JOIN thucdon AS td ON ct.MaMon = td.mata Where ct.mahd =%d",
+				"Select ct.mata, tenta, DVT, SoLuong, ct.Gia, mahd From cthd AS ct INNER JOIN thucdon AS td ON ct.mata = td.mata Where ct.mahd =%d",
 				ma);
 		System.err.println(sql);
 		try {

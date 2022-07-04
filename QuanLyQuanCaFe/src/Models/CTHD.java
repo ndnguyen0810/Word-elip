@@ -62,6 +62,7 @@ public class CTHD {
 		try {
 			String sql = String.format("insert into cthd (mahd, mata, gia, soluong) values (%d, %d, %d, %d)",
 					ct.getMaHD(), ct.getMaTA(), ct.getGia(), ct.getSoLuong());
+			System.err.println(sql);
 			PreparedStatement s = con.prepareStatement(sql);
 			if (s.executeUpdate() > 0) {
 				JOptionPane.showMessageDialog(null, "Thêm thành công");

@@ -6,8 +6,15 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="maban"/>
+		<item key="selection" value="cbbLoaiMon"/>
 		<list key="findhistory">
+			<item value="cbbLoaiMon"/>
+			<item value="Clock"/>
+			<item value="clock"/>
+			<item value="fillDsMon"/>
+			<item value="jpDsMon"/>
+			<item value="JOptionPane.showConfirmDialog(null,"/>
+			<item value="JOptionPane.showConfirmDialog(null, "/>
 			<item value="maban"/>
 			<item value="jButton1ActionPerformed"/>
 			<item value="gioden"/>
@@ -16,15 +23,10 @@
 			<item value="txtSl"/>
 			<item value="HiH"/>
 			<item value="jScrollPane1"/>
-			<item value="fillThongTin"/>
-			<item value="arrhd"/>
-			<item value="btngoi"/>
-			<item value="jpThongTinThanhToan"/>
-			<item value="jpDsMon"/>
-			<item value="chuyentien"/>
-			<item value="arrThucDon"/>
 		</list>
 		<list key="replacehistory">
+			<item value="lblTime"/>
+			<item value="JOptionPane.showMessageDialog(null, "/>
 			<item value="set"/>
 			<item value="get"/>
 			<item value="txtSoLuong"/>
@@ -38,8 +40,6 @@
 			<item value="pnDSLoai"/>
 			<item value="pnThucDon"/>
 			<item value="arrBan1"/>
-			<item value="JOptionPane.showMessageDialog(null,&quot;"/>
-			<item value="pnMainChinh"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

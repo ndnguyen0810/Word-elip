@@ -14,95 +14,112 @@ public class JP_QL_ThucDon extends JPanel {
 	private JTable tabThucDon;
 	private JTextField txtTim;
 	private JButton btnThem, btnXoa, btnSua;
-	private JComboBox cbbNhom;
+	private JComboBox<String> cbbNhom;
 	public static int maTD;
 	public static String name;
 	private JLabel lblTotal;
 	public ThucAn ta = new ThucAn();
+	private LoaiThucAn lt = new LoaiThucAn();
 
 	public JP_QL_ThucDon() {
 		addcontrols();
 		addevents();
 		FillTable();
+		lt.ShowLoai_InCBB(cbbNhom);
 	}
 
-	public void FillTable() {
-		ArrayList<ThucAn> arrTA = ta.ShowTable(0);
-		DefaultTableModel tbmodel = new DefaultTableModel();
+public void FillTable() {
+	ArrayList<ThucAn> arrTA = ta.ShowTable(0);
+	DefaultTableModel tbmodel = new DefaultTableModel();
 
-		tbmodel.addColumn("Mã thức uống");
-		tbmodel.addColumn("Tên thức uống");
-		tbmodel.addColumn("Giá tiền");
-		tbmodel.addColumn("Đơn vị tính");
-		tbmodel.addColumn("Loại");
+	tbmodel.addColumn("Mã thức uống");
+	tbmodel.addColumn("Tên thức uống");
+	tbmodel.addColumn("Giá tiền");
+	tbmodel.addColumn("Đơn vị tính");
+	tbmodel.addColumn("Loại");
 
-		if (arrTA != null) {
-			int sotk = 0;
-			for (ThucAn ta : arrTA) {
-				sotk++;
-				tbmodel.addRow(new Object[] { ta.getMaTA(), ta.getTenTA(), ta.getGia(), ta.getdVT(), ta.getMaLoai() });
-			}
-			lblTotal.setText(String.valueOf(sotk) + " món");
-		} else {
-			JOptionPane.showMessageDialog(null, "Không có thức uống nào");
+	if (arrTA != null) {
+		int sotk = 0;
+		for (ThucAn ta : arrTA) {
+			sotk++;
+			tbmodel.addRow(new Object[] { ta.getMaTA(), ta.getTenTA(), ta.getGia(), ta.getdVT(), ta.getMaLoai() });
 		}
-		tabThucDon.setModel(tbmodel);
-		for (int i = 0; i < tabThucDon.getColumnCount(); i++) {
-			Class<?> col = tabThucDon.getColumnClass(i);
-			tabThucDon.setDefaultEditor(col, null);
-		}
+		lblTotal.setText(String.valueOf(sotk) + " món");
+	} else {
+		JOptionPane.showMessageDialog(null, "Không có thức uống nào");
 	}
+	tabThucDon.setModel(tbmodel);
+	for (int i = 0; i < tabThucDon.getColumnCount(); i++) {
+		Class<?> col = tabThucDon.getColumnClass(i);
+		tabThucDon.setDefaultEditor(col, null);
+	}
+}
 
-	private void addevents() {
-		btnThem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				name = btnThem.getText();
-				JD_QL_ThucDon_Edit ban = new JD_QL_ThucDon_Edit(Run.main, true, "Thêm thức uống mới");
+private void addevents() {
+	btnThem.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			name = btnThem.getText();
+			JD_QL_ThucDon_Edit ban = new JD_QL_ThucDon_Edit(Run.main, true, "Thêm thức uống mới");
+			ban.setVisible(true);
+			FillTable();
+		}
+	});
+
+	btnSua.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			name = btnSua.getText();
+			if (maTD > 0) {
+				JD_QL_ThucDon_Edit ban = new JD_QL_ThucDon_Edit(Run.main, true, "Sửa thức uống");
 				ban.setVisible(true);
 				FillTable();
-			}
-		});
-
-		btnSua.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				name = btnSua.getText();
-				if (maTD > 0) {
-					JD_QL_ThucDon_Edit ban = new JD_QL_ThucDon_Edit(Run.main, true, "Sửa thức uống");
-					ban.setVisible(true);
-					FillTable();
-				} else {
-					JOptionPane.showMessageDialog(null, "Bạn chưa chọn!");
-				}
-
-			}
-		});
-
-		btnXoa.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
-		tabThucDon.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		ListSelectionModel model = tabThucDon.getSelectionModel();
-		model.addListSelectionListener(new ListSelectionListener() {
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				if (e.getValueIsAdjusting()) {
-					return;
-				}
-				ListSelectionModel lsm = (ListSelectionModel) e.getSource();
-
-				if (lsm.isSelectionEmpty()) {
-
-				} else {
-					int selectedRow = lsm.getMinSelectionIndex();
-					maTD = Integer.parseInt(tabThucDon.getModel().getValueAt(selectedRow, 0).toString());
-				}
+			} else {
+				JOptionPane.showMessageDialog(null, "Bạn chưa chọn!");
 			}
 
-		});
+		}
+	});
 
-	}
+	btnXoa.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			if (maTD > 0) {
+				ta.setMaTA(maTD);
+				ta.Delete(ta);
+				FillTable();
+			} else {
+				JOptionPane.showMessageDialog(null, "Bạn chưa chọn!");
+			}
+
+		}
+	});
+	cbbNhom.addItemListener(new ItemListener() {
+		public void itemStateChanged(ItemEvent e) {
+			LoaiThucAn selected = (LoaiThucAn) cbbNhom.getSelectedItem();
+			//System.err.println(selected.getMaLoai());
+	    //   ta.ShowInChoseCBB(selected.getMaLoai());
+		}
+	});
+	
+	tabThucDon.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	ListSelectionModel model = tabThucDon.getSelectionModel();
+	model.addListSelectionListener(new ListSelectionListener() {
+		@Override
+		public void valueChanged(ListSelectionEvent e) {
+			if (e.getValueIsAdjusting()) {
+				return;
+			}
+			ListSelectionModel lsm = (ListSelectionModel) e.getSource();
+
+			if (lsm.isSelectionEmpty()) {
+
+			} else {
+				int selectedRow = lsm.getMinSelectionIndex();
+				maTD = Integer.parseInt(tabThucDon.getModel().getValueAt(selectedRow, 0).toString());
+			}
+		}
+
+	});
+
+}
 
 	private void addcontrols() {
 		setLayout(new BorderLayout(0, 0));
@@ -120,6 +137,7 @@ public class JP_QL_ThucDon extends JPanel {
 		panel_2.add(lblNhom);
 
 		cbbNhom = new JComboBox();
+		
 		panel_2.add(cbbNhom);
 
 		JPanel panel_4 = new JPanel();

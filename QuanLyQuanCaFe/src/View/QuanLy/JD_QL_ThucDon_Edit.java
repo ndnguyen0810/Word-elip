@@ -43,7 +43,7 @@ public class JD_QL_ThucDon_Edit extends JDialog {
 					ta.setTenTA(txtTenMon.getText());
 					ta.setGia(Integer.parseInt(txtGia.getText()));
 					ta.setdVT(cbbDVT.getSelectedItem().toString());
-					ta.setMaLoai(maloai.getMaLoai());
+					ta.setMaLoai(String.valueOf(maloai.getMaLoai()));
 					ta.setdVT(cbbDVT.getSelectedItem().toString());
 					ta.Insert(ta);
 				}
@@ -52,7 +52,7 @@ public class JD_QL_ThucDon_Edit extends JDialog {
 					ta.setTenTA(txtTenMon.getText());
 					ta.setGia(Integer.parseInt(txtGia.getText()));
 					ta.setdVT(cbbDVT.getSelectedItem().toString());
-					ta.setMaLoai(maloai.getMaLoai());
+					ta.setMaLoai(String.valueOf(maloai.getMaLoai()));
 					ta.setdVT(cbbDVT.getSelectedItem().toString());
 					ta.Update(ta);
 				}
@@ -190,15 +190,17 @@ public class JD_QL_ThucDon_Edit extends JDialog {
 				cancelButton.setActionCommand("Cancel");
 				pnButton.add(cancelButton);
 			}
+			{
+				//cbbDVT = new JComboBox<>(new String[] { "Chai", "Lon","Ly"});
+				cbbDVT.setEditable(false);
+				cbbDVT.setFont(new Font("Arial", Font.PLAIN, 14));
+
+			}
 		}
 
 		lblTitle.setFont(new Font("Arial", Font.BOLD, 16));
 		lt.ShowLoai_InCBB(cbbLoaiMon);
 		{
-			cbbDVT = new JComboBox<>(new String[] { "Chai", "Lon","Ly"});
-			cbbDVT.setEditable(false);
-			cbbDVT.setFont(new Font("Arial", Font.PLAIN, 14));
-
 			GridBagConstraints gbc_cbbDVT = new GridBagConstraints();
 			gbc_cbbDVT.gridwidth = 2;
 			gbc_cbbDVT.insets = new Insets(0, 0, 0, 5);

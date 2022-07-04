@@ -41,16 +41,14 @@ public class JP_QL_Ban extends JPanel {
 
 		btnSua.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(maban>0) {
+				if (maban > 0) {
 					In_UP = btnSua.getText().toUpperCase();
 					JD_QL_Ban_Edit ban = new JD_QL_Ban_Edit(Run.main, true, "Sửa bàn - Bàn ");
 					ban.setVisible(true);
 					FillTable();
+				} else {
+					JOptionPane.showInternalMessageDialog(null, "Bạn chưa chọn!");
 				}
-				else {
-					JOptionPane.showInternalMessageDialog(null,"Bạn chưa chọn!");
-				}
-
 			}
 		});
 
@@ -71,28 +69,22 @@ public class JP_QL_Ban extends JPanel {
 					return;
 				}
 				ListSelectionModel lsm = (ListSelectionModel) e.getSource();
-
 				if (lsm.isSelectionEmpty()) {
 
 				} else {
 					int selectedRow = lsm.getMinSelectionIndex();
 					maban = Integer.parseInt(tabBan.getModel().getValueAt(selectedRow, 0).toString());
-
 				}
 			}
-
 		});
-
 	}
 
 	public void FillTable() {
 		ArrayList<Ban> arrTable = b.ShowBan(0);
 		DefaultTableModel tbmodel = new DefaultTableModel();
-
 		tbmodel.addColumn("Mã Bàn");
 		tbmodel.addColumn("Tên bàn");
 		tbmodel.addColumn("Trạng thái");
-
 		if (arrTable != null) {
 			int soban = 0;
 			for (Ban b : arrTable) {

@@ -50,58 +50,58 @@ public class JP_QL_LoaiMon extends JPanel {
 		}
 	}
 
-	private void addevents() {
-		btnThem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				name = btnThem.getText();
-				JD_QL_NhomMon_Edit ban = new JD_QL_NhomMon_Edit(Run.main, true, "Thêm loại món");
+private void addevents() {
+	btnThem.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			name = btnThem.getText();
+			JD_QL_NhomMon_Edit ban = new JD_QL_NhomMon_Edit(Run.main, true, "Thêm loại món");
+			ban.setVisible(true);
+			FillTable();
+		}
+
+	});
+
+	btnSua.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			name = btnSua.getText();
+			if(maloai>0) {
+				JD_QL_NhomMon_Edit ban = new JD_QL_NhomMon_Edit(Run.main, true, "Sửa loại món");
 				ban.setVisible(true);
 				FillTable();
 			}
-
-		});
-
-		btnSua.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				name = btnSua.getText();
-				if(maloai>0) {
-					JD_QL_NhomMon_Edit ban = new JD_QL_NhomMon_Edit(Run.main, true, "Sửa loại món");
-					ban.setVisible(true);
-					FillTable();
-				}
-				else {
-					JOptionPane.showMessageDialog(null, "Bạn chưa chọn");
-				}
+			else {
+				JOptionPane.showMessageDialog(null, "Bạn chưa chọn");
 			}
-		});
+		}
+	});
 
-		btnXoa.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				FillTable();
+	btnXoa.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			FillTable();
+		}
+	});
+
+	tabLoai.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	ListSelectionModel model = tabLoai.getSelectionModel();
+	model.addListSelectionListener(new ListSelectionListener() {
+		@Override
+		public void valueChanged(ListSelectionEvent e) {
+			if (e.getValueIsAdjusting()) {
+				return;
 			}
-		});
+			ListSelectionModel lsm = (ListSelectionModel) e.getSource();
 
-		tabLoai.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		ListSelectionModel model = tabLoai.getSelectionModel();
-		model.addListSelectionListener(new ListSelectionListener() {
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				if (e.getValueIsAdjusting()) {
-					return;
-				}
-				ListSelectionModel lsm = (ListSelectionModel) e.getSource();
+			if (lsm.isSelectionEmpty()) {
 
-				if (lsm.isSelectionEmpty()) {
+			} else {
+				int selectedRow = lsm.getMinSelectionIndex();
+				maloai = Integer.parseInt(tabLoai.getModel().getValueAt(selectedRow, 0).toString());
 
-				} else {
-					int selectedRow = lsm.getMinSelectionIndex();
-					maloai = Integer.parseInt(tabLoai.getModel().getValueAt(selectedRow, 0).toString());
-
-				}
 			}
+		}
 
-		});
-	}
+	});
+}
 
 	private void addcontrols() {
 		setLayout(new BorderLayout(0, 0));

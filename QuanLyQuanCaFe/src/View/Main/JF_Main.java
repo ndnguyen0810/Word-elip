@@ -1,26 +1,19 @@
 package View.Main;
 
-import javax.print.attribute.standard.DateTimeAtCompleted;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.border.*;
 
-import Models.Ban;
 import View.BanHang.*;
 import View.CaiDat.*;
 import View.QuanLy.*;
 import View.ThongKe.*;
 
 import java.awt.event.*;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.awt.Window.Type;
 
 public class JF_Main extends JFrame {
 	private JButton btnDangXuat, btnTrangChu, btnBanHang, btnThongKe, btnCaiDat, btnQuanLy;
-	private JLabel lblName, lblTime;
+	private JLabel lblName;
 //theo thứ tự 1 -2-3	
 	JP_Home home;
 	JP_BanHang banhang;
@@ -81,6 +74,7 @@ public class JF_Main extends JFrame {
 		pnMainChinh.add(jh);
 		pnMainChinh.updateUI();
 		lblName.setText("Xin chào: " + JF_Login.name);
+
 	}
 
 	private void addEvents() {
@@ -178,21 +172,6 @@ public class JF_Main extends JFrame {
 
 		btnCaiDat.setFont(new Font("Arial", Font.PLAIN, 14));
 		pnMenu.add(btnCaiDat);
-
-		JPanel pnTT = new JPanel();
-		pnMenu.add(pnTT);
-		pnTT.setLayout(new BoxLayout(pnTT, BoxLayout.Y_AXIS));
-		lblTime = new JLabel();
-		lblTime.setFont(new Font("Arial", Font.PLAIN, 15));
-		pnTT.add(lblTime);
-
-		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 15));
-		//pnTT.add(lblNewLabel_1);
-
-		JLabel lblNewLabel_2 = new JLabel("New label");
-		lblNewLabel_2.setFont(new Font("Arial", Font.PLAIN, 15));
-	//	pnTT.add(lblNewLabel_2);
 		JPanel pnMenuRight = new JPanel();
 		pnMenu.add(pnMenuRight);
 

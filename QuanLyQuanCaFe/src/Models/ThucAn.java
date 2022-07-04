@@ -6,15 +6,14 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class ThucAn {
-
 	// Constractor
 	private int maTA;
 	private String tenTA;
 	private int gia;
 	private String dVT;
-	private int maLoai;
+	private String maLoai;
 
-	public ThucAn(int maTA, String tenTA, int gia, String dVT, int maLoai) {
+	public ThucAn(int maTA, String tenTA, int gia, String dVT, String maLoai) {
 		super();
 		this.maTA = maTA;
 		this.tenTA = tenTA;
@@ -59,22 +58,22 @@ public class ThucAn {
 		this.dVT = dVT;
 	}
 
-	public int getMaLoai() {
+	public String getMaLoai() {
 		return maLoai;
 	}
 
-	public void setMaLoai(int maLoai) {
+	public void setMaLoai(String maLoai) {
 		this.maLoai = maLoai;
 	}
 
 	// xử lý dữ liệu
 	private Connection con = MyConnect.con;
-
 	public void Insert(ThucAn ta) {
 		try {
-			String sql = String.format("insert into thucdon(tenta,gia,dvt,maloai)values ('%s',%d ,'%s',%d )",
+			String sql = String.format("insert into thucdon(tenta,gia,dvt,maloai)values ('%s',%d ,'%s','%s' )",
 					ta.getTenTA(), ta.getGia(), ta.getdVT(), ta.getMaLoai());
 			PreparedStatement s = con.prepareStatement(sql);
+			System.err.println(sql);
 			if (s.executeUpdate() > 0) {
 				JOptionPane.showMessageDialog(null, "Thêm thành công");
 			} else {
@@ -87,7 +86,7 @@ public class ThucAn {
 
 	public void Update(ThucAn ta) {
 		try {
-			String sql = String.format("update thucdon set tenta='%s', gia=%d, dvt='%s', maloai=%d where mata=%d",
+			String sql = String.format("update thucdon set tenta='%s', gia=%d, dvt='%s', maloai='%s' where mata=%d",
 					ta.getTenTA(), ta.getGia(), ta.getdVT(), ta.getMaLoai(), ta.getMaTA());
 			PreparedStatement s = con.prepareStatement(sql);
 			if (s.executeUpdate() > 0) {
@@ -118,16 +117,17 @@ public class ThucAn {
 		ArrayList<ThucAn> arrThucAn = null;
 		String sql;
 		if (key == 0) {
-			sql = "Select * from thucdon, loaita where loaita.maloai=thucdon.mata";
+			sql = "select MaTA,TenTA,Gia,DVT, l.TenLoai from thucdon td, loaita l where td.MaLoai=l.MaLoai";
 		} else {
-			sql = "Select * From thucdon Where maloai = " + key;
+			sql = "select MaTA,TenTA,Gia,DVT, l.TenLoai from thucdon td, loaita l where td.MaLoai=l.MaLoai and l.maloai=" + key;
 		}
 		try {
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(sql);
 			arrThucAn = new ArrayList<ThucAn>();
 			while (rs.next()) {
-				ThucAn ta = new ThucAn(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getInt(5));
+
+				ThucAn ta = new ThucAn(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5));
 				arrThucAn.add(ta);
 			}
 		} catch (SQLException ex) {
@@ -135,5 +135,5 @@ public class ThucAn {
 		}
 		return arrThucAn;
 	}
-
+	
 }

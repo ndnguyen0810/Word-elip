@@ -55,7 +55,6 @@ public class Ban {
 
 	// xu ly
 	private Connection con = MyConnect.con;
-
 	public void Insert(Ban b) {
 		try {
 			String sql = String.format("insert into ban (tenban,trangthai) values ('%s', '%s')", b.getTenBan(),
@@ -132,7 +131,6 @@ public class Ban {
 		} catch (SQLException ex) {
 			JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi !");
 		}
-
 		return arrBan;
 	}
 	

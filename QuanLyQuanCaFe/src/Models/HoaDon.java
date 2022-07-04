@@ -131,6 +131,7 @@ public class HoaDon {
 		String sql;
 		HoaDon arrhd = null;
 		sql = String.format("select * from hoadon where maban=%d", ma);
+		System.err.println(sql);
 		try {
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(sql);

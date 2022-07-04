@@ -6,7 +6,6 @@ import javax.swing.*;
 
 public class LoaiThucAn {
 	// tạo constructor
-
 	private int maLoai;
 	private String tenLoai;
 
@@ -43,7 +42,6 @@ public class LoaiThucAn {
 //xu ly dư liệu
 
 	private Connection con = MyConnect.con;
-
 	public void Insert(LoaiThucAn l) {
 		try {
 			String sql = String.format("insert into loaita(tenloai) values ('%s')", l.getTenLoai());

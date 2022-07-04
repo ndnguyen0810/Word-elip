@@ -1,0 +1,208 @@
+package View.QuanLy;
+
+import javax.swing.*;
+import javax.swing.border.*;
+import javax.swing.event.*;
+import javax.swing.table.*;
+import Models.*;
+import java.awt.*;
+import View.Main.Run;
+import java.awt.event.*;
+import java.util.ArrayList;
+
+public class JP_QL_ThucDon extends JPanel {
+	private JTable tabThucDon;
+	private JTextField txtTim;
+	private JButton btnThem, btnXoa, btnSua;
+	private JComboBox<String> cbbNhom;
+	public static int maTD;
+	public static String name;
+	private JLabel lblTotal;
+	public ThucAn ta = new ThucAn();
+	private LoaiThucAn lt = new LoaiThucAn();
+
+	public JP_QL_ThucDon() {
+		addcontrols();
+		addevents();
+		FillTable(null);
+		lt.ShowLoai_InCBB(cbbNhom);
+	}
+
+	public void FillTable(String nhom) {
+		ArrayList<ThucAn> arrTA = ta.ShowTable(0);
+		DefaultTableModel tbmodel = new DefaultTableModel();
+
+		tbmodel.addColumn("Mã thức uống");
+		tbmodel.addColumn("Tên thức uống");
+		tbmodel.addColumn("Giá tiền");
+		tbmodel.addColumn("Đơn vị tính");
+		tbmodel.addColumn("Loại");
+
+		if (arrTA != null) {
+			int sotk = 0;
+			for (ThucAn ta : arrTA) {
+				sotk++;
+				tbmodel.addRow(new Object[] { ta.getMaTA(), ta.getTenTA(), ta.getGia(), ta.getdVT(), ta.getMaLoai() });
+			}
+			lblTotal.setText(String.valueOf(sotk) + " món");
+		} else {
+			JOptionPane.showMessageDialog(null, "Không có thức uống nào");
+		}
+		tabThucDon.setModel(tbmodel);
+		for (int i = 0; i < tabThucDon.getColumnCount(); i++) {
+			Class<?> col = tabThucDon.getColumnClass(i);
+			tabThucDon.setDefaultEditor(col, null);
+		}
+	}
+
+	private void addevents() {
+		btnThem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				name = btnThem.getText();
+				JD_QL_ThucDon_Edit ban = new JD_QL_ThucDon_Edit(Run.main, true, "Thêm thức uống mới");
+				ban.setVisible(true);
+				FillTable();
+			}
+		});
+
+		btnSua.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				name = btnSua.getText();
+				if (maTD > 0) {
+					JD_QL_ThucDon_Edit ban = new JD_QL_ThucDon_Edit(Run.main, true, "Sửa thức uống");
+					ban.setVisible(true);
+					FillTable();
+				} else {
+					JOptionPane.showMessageDialog(null, "Bạn chưa chọn!");
+				}
+
+			}
+		});
+
+		btnXoa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
+		cbbNhom.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				LoaiThucAn selected = (LoaiThucAn) cbbNhom.getSelectedItem();
+		        FillTable(selected.getMaLoai());
+			}
+		});
+		
+		tabThucDon.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		ListSelectionModel model = tabThucDon.getSelectionModel();
+		model.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				if (e.getValueIsAdjusting()) {
+					return;
+				}
+				ListSelectionModel lsm = (ListSelectionModel) e.getSource();
+
+				if (lsm.isSelectionEmpty()) {
+
+				} else {
+					int selectedRow = lsm.getMinSelectionIndex();
+					maTD = Integer.parseInt(tabThucDon.getModel().getValueAt(selectedRow, 0).toString());
+				}
+			}
+
+		});
+
+	}
+
+	private void addcontrols() {
+		setLayout(new BorderLayout(0, 0));
+
+		JPanel pnTop = new JPanel();
+		add(pnTop, BorderLayout.NORTH);
+		pnTop.setLayout(new GridLayout(1, 3, 0, 0));
+
+		JPanel panel_2 = new JPanel();
+		panel_2.setBorder(new EmptyBorder(10, 10, 10, 10));
+		pnTop.add(panel_2);
+		panel_2.setLayout(new BoxLayout(panel_2, BoxLayout.X_AXIS));
+
+		JLabel lblNhom = new JLabel("Nhóm món");
+		panel_2.add(lblNhom);
+
+		cbbNhom = new JComboBox();
+		
+		panel_2.add(cbbNhom);
+
+		JPanel panel_4 = new JPanel();
+		pnTop.add(panel_4);
+		panel_4.setLayout(new BoxLayout(panel_4, BoxLayout.X_AXIS));
+
+		JLabel lblTim = new JLabel("Tìm món");
+		panel_4.add(lblTim);
+
+		txtTim = new JTextField();
+		panel_4.add(txtTim);
+		txtTim.setColumns(10);
+
+		JPanel panel_3 = new JPanel();
+		pnTop.add(panel_3);
+
+		JPanel pnCenter = new JPanel();
+		add(pnCenter, BorderLayout.CENTER);
+		pnCenter.setLayout(new BoxLayout(pnCenter, BoxLayout.Y_AXIS));
+
+		JPanel panel = new JPanel();
+		panel.setBorder(new EmptyBorder(10, 10, 10, 10));
+		pnCenter.add(panel);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+
+		JScrollPane scrollPane = new JScrollPane();
+		panel.add(scrollPane);
+
+		tabThucDon = new JTable();
+		tabThucDon.setFont(new Font("Arial", Font.PLAIN, 13));
+		tabThucDon.setModel(new DefaultTableModel(new Object[][] {}, new String[] {}));
+		scrollPane.setViewportView(tabThucDon);
+
+		JPanel panel_1 = new JPanel();
+		pnCenter.add(panel_1);
+		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.X_AXIS));
+
+		JPanel panel_6 = new JPanel();
+		panel_6.setBorder(new EmptyBorder(0, 0, 0, 20));
+		FlowLayout flowLayout_1 = (FlowLayout) panel_6.getLayout();
+		flowLayout_1.setAlignment(FlowLayout.RIGHT);
+		panel_1.add(panel_6);
+
+		JLabel lblTS = new JLabel("Tổng số món:");
+		lblTS.setFont(new Font("Arial", Font.PLAIN, 14));
+		panel_6.add(lblTS);
+
+		lblTotal = new JLabel("total");
+		lblTotal.setForeground(Color.RED);
+		lblTotal.setFont(new Font("Arial", Font.PLAIN, 14));
+		lblTotal.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_6.add(lblTotal);
+
+		JPanel pnRight = new JPanel();
+		add(pnRight, BorderLayout.EAST);
+		pnRight.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+
+		JPanel pnBTN = new JPanel();
+		pnRight.add(pnBTN);
+		pnBTN.setLayout(new GridLayout(3, 1, 5, 5));
+
+		btnThem = new JButton("Thêm");
+		btnThem.setIcon(new ImageIcon(JP_QL_ThucDon.class.getResource("/Image/add.png")));
+		pnBTN.add(btnThem);
+
+		btnSua = new JButton("Sửa");
+		btnSua.setIcon(new ImageIcon(JP_QL_ThucDon.class.getResource("/Image/edit.png")));
+		pnBTN.add(btnSua);
+
+		btnXoa = new JButton("Xoá");
+		btnXoa.setIcon(new ImageIcon(JP_QL_ThucDon.class.getResource("/Image/delete.png")));
+		pnBTN.add(btnXoa);
+
+	}
+
+}

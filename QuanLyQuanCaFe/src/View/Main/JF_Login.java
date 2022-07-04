@@ -18,8 +18,9 @@ public class JF_Login extends JFrame {
 	private JButton btnDangNhap, btnThoat;
 
 	public TaiKhoan tk = new TaiKhoan();
-	public static String name;
-	public Connection con = MyConnect.getConnection();
+	public static String name, pasS;
+	public static int matk;
+	public Connection con = MyConnect.con;
 
 	public static void main(String[] args) {
 		new JF_Login().showW();
@@ -46,7 +47,6 @@ public class JF_Login extends JFrame {
 	private void addevents() {
 		btnDangNhap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				String user = txtUser.getText();
 				String pass = txtPass.getText();
 				tk.setUserName(user);
@@ -54,26 +54,22 @@ public class JF_Login extends JFrame {
 				boolean check = tk.CheckLogin(tk);
 				if (check) {
 					Run.tk = tk.GetTaiKhoan(user, pass);
-					name= Run.tk.getHoten();
+					name = Run.tk.getHoten();
+					pasS = Run.tk.getPassWord();
+					matk= Run.tk.getMaTK();
 					Run.runMain();
-					
 					setVisible(false);
 				} else {
-					JOptionPane.showMessageDialog(null, "Tài khoản hoặc mật khẩu không đúng", "Login Error",
-							JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Tài khoản hoặc mật khẩu không đúng", "Login Error", JOptionPane.ERROR_MESSAGE);
 				}
-
 			}
 		});
-
 		btnThoat.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
-
 		});
-
 	}
 
 	private void addcontrols() {

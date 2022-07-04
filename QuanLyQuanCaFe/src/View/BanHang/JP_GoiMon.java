@@ -41,7 +41,6 @@ public class JP_GoiMon extends JPanel {
 		pnTT_ThanhToan.setVisible(false);
 		jscollTT.setVisible(false);
 
-		hoadon = hoadon.GetHDbyMaBan(maban);
 		if (hoadon != null) {
 			order = ds.GetDsOrder(hoadon.getMaDH());
 			fillDsMon(0);
@@ -53,7 +52,7 @@ public class JP_GoiMon extends JPanel {
 
 		if (lblStatus.getText().equals("Đang phục vụ")) {
 			btnQuayLai.setVisible(false);
-			pnThucDon thucdon = new pnThucDon();
+			JP_ThucDon thucdon = new JP_ThucDon();
 			thucdon.tenban = TenBan;
 			thucdon.maban = maban;
 			pnThucDon.removeAll();
@@ -63,8 +62,7 @@ public class JP_GoiMon extends JPanel {
 	}
 
 	public void fillDsMon(int mahd) {
-		
-		if (mahd != 0) {
+		if (mahd != 0) {	
 			order = ds.GetDsOrder(mahd);
 			hoadon = hoadon.GetHDbyMaBan(MaBan);
 			tienmon = 0;
@@ -207,9 +205,9 @@ public class JP_GoiMon extends JPanel {
 					btnGoi.setText("Hủy bàn");
 //
 					JP_ThucDon thucdon = new JP_ThucDon();
-		            thucdon.maban = MaBan;
-		            thucdon.tenban = TenBan;    
-	            	thucdon.gioden = sf.format(date);
+					thucdon.maban = MaBan;
+					thucdon.tenban = TenBan;
+					thucdon.gioden = sf.format(date);
 
 					pnThucDon.removeAll();
 					pnThucDon.add(thucdon);
